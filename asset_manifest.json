@@ -1,0 +1,468 @@
+{
+  "generatedAt": "2026-06-19T16:21:26.045Z",
+  "source": "src/assets (hand-authored, source of truth)",
+  "assets": [
+    {
+      "name": "icon_accounting_system.png",
+      "path": "src/assets/automation/icon_accounting_system.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_ai_assistant.png",
+      "path": "src/assets/automation/icon_ai_assistant.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_bi_dashboard.png",
+      "path": "src/assets/automation/icon_bi_dashboard.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_chatbot.png",
+      "path": "src/assets/automation/icon_chatbot.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_crm.png",
+      "path": "src/assets/automation/icon_crm.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_erp.png",
+      "path": "src/assets/automation/icon_erp.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_spreadsheet.png",
+      "path": "src/assets/automation/icon_spreadsheet.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_task_tracker.png",
+      "path": "src/assets/automation/icon_task_tracker.png",
+      "category": "automation",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "e-commerce.png",
+      "path": "src/assets/background/e-commerce.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "it-company.png",
+      "path": "src/assets/background/it-company.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "logistics.png",
+      "path": "src/assets/background/logistics.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "manufacturing.png",
+      "path": "src/assets/background/manufacturing.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "marketing-agency.png",
+      "path": "src/assets/background/marketing-agency.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "accounting_room.png",
+      "path": "src/assets/departments/accounting_room.png",
+      "category": "departments",
+      "dimensions": "385x417"
+    },
+    {
+      "name": "advertising_room.png",
+      "path": "src/assets/departments/advertising_room.png",
+      "category": "departments",
+      "dimensions": "376x444"
+    },
+    {
+      "name": "analysis_room.png",
+      "path": "src/assets/departments/analysis_room.png",
+      "category": "departments",
+      "dimensions": "369x444"
+    },
+    {
+      "name": "analytics_room.png",
+      "path": "src/assets/departments/analytics_room.png",
+      "category": "departments",
+      "dimensions": "369x444"
+    },
+    {
+      "name": "copywriting_room.png",
+      "path": "src/assets/departments/copywriting_room.png",
+      "category": "departments",
+      "dimensions": "383x444"
+    },
+    {
+      "name": "design_room.png",
+      "path": "src/assets/departments/design_room.png",
+      "category": "departments",
+      "dimensions": "383x444"
+    },
+    {
+      "name": "development_room.png",
+      "path": "src/assets/departments/development_room.png",
+      "category": "departments",
+      "dimensions": "383x444"
+    },
+    {
+      "name": "dispatch_room.png",
+      "path": "src/assets/departments/dispatch_room.png",
+      "category": "departments",
+      "dimensions": "369x444"
+    },
+    {
+      "name": "marketing_room.png",
+      "path": "src/assets/departments/marketing_room.png",
+      "category": "departments",
+      "dimensions": "376x444"
+    },
+    {
+      "name": "operations_room.png",
+      "path": "src/assets/departments/operations_room.png",
+      "category": "departments",
+      "dimensions": "383x444"
+    },
+    {
+      "name": "procurement_room.png",
+      "path": "src/assets/departments/procurement_room.png",
+      "category": "departments",
+      "dimensions": "369x444"
+    },
+    {
+      "name": "production_room.png",
+      "path": "src/assets/departments/production_room.png",
+      "category": "departments",
+      "dimensions": "383x444"
+    },
+    {
+      "name": "qa_room.png",
+      "path": "src/assets/departments/qa_room.png",
+      "category": "departments",
+      "dimensions": "380x420"
+    },
+    {
+      "name": "quality_control_room.png",
+      "path": "src/assets/departments/quality_control_room.png",
+      "category": "departments",
+      "dimensions": "380x420"
+    },
+    {
+      "name": "sale_room.png",
+      "path": "src/assets/departments/sale_room.png",
+      "category": "departments",
+      "dimensions": "376x444"
+    },
+    {
+      "name": "strategy_room.png",
+      "path": "src/assets/departments/strategy_room.png",
+      "category": "departments",
+      "dimensions": "369x444"
+    },
+    {
+      "name": "support_room.png",
+      "path": "src/assets/departments/support_room.png",
+      "category": "departments",
+      "dimensions": "371x419"
+    },
+    {
+      "name": "tracking_room.png",
+      "path": "src/assets/departments/tracking_room.png",
+      "category": "departments",
+      "dimensions": "380x420"
+    },
+    {
+      "name": "warehouse_room.png",
+      "path": "src/assets/departments/warehouse_room.png",
+      "category": "departments",
+      "dimensions": "371x419"
+    },
+    {
+      "name": "black_employee_idle_blink.png",
+      "path": "src/assets/employees/black_employee/black_employee_idle_blink.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_idle.png",
+      "path": "src/assets/employees/black_employee/black_employee_idle.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_sitting.png",
+      "path": "src/assets/employees/black_employee/black_employee_sitting.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_walk_down.png",
+      "path": "src/assets/employees/black_employee/black_employee_walk_down.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_walk_left.png",
+      "path": "src/assets/employees/black_employee/black_employee_walk_left.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_walk_right.png",
+      "path": "src/assets/employees/black_employee/black_employee_walk_right.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "black_employee_walk_up.png",
+      "path": "src/assets/employees/black_employee/black_employee_walk_up.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_idle_blink.png",
+      "path": "src/assets/employees/red_employee/employee_idle_blink.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_idle.png",
+      "path": "src/assets/employees/red_employee/employee_idle.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_sitting.png",
+      "path": "src/assets/employees/red_employee/employee_sitting.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_walk_down.png",
+      "path": "src/assets/employees/red_employee/employee_walk_down.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_walk_left.png",
+      "path": "src/assets/employees/red_employee/employee_walk_left.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_walk_right.png",
+      "path": "src/assets/employees/red_employee/employee_walk_right.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "employee_walk_up.png",
+      "path": "src/assets/employees/red_employee/employee_walk_up.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_idle_blink.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_idle_blink.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_idle.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_idle.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_sitting.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_sitting.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_walk_down.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_walk_down.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_walk_left.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_walk_left.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_walk_right.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_walk_right.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "woman_employee_walk_up.png",
+      "path": "src/assets/employees/woman_employee/woman_employee_walk_up.png",
+      "category": "employees",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "chair.png",
+      "path": "src/assets/office/chair.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "computer.png",
+      "path": "src/assets/office/computer.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "desk.png",
+      "path": "src/assets/office/desk.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "meeting_table.png",
+      "path": "src/assets/office/meeting_table.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "office_plant.png",
+      "path": "src/assets/office/office_plant.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "server_rack.png",
+      "path": "src/assets/office/server_rack.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "water_cooler.png",
+      "path": "src/assets/office/water_cooler.png",
+      "category": "office",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "palette.png",
+      "path": "src/assets/palette/palette.png",
+      "category": "palette",
+      "dimensions": "128x32"
+    },
+    {
+      "name": "modern-tech-direction.png",
+      "path": "src/assets/reference/modern-tech-direction.png",
+      "category": "reference",
+      "dimensions": "853x1844"
+    },
+    {
+      "name": "bug_token.png",
+      "path": "src/assets/tasks/bug_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "development_task_token.png",
+      "path": "src/assets/tasks/development_task_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "invoice_token.png",
+      "path": "src/assets/tasks/invoice_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "lead_token.png",
+      "path": "src/assets/tasks/lead_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "payment_token.png",
+      "path": "src/assets/tasks/payment_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "requirement_token.png",
+      "path": "src/assets/tasks/requirement_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "support_ticket_token.png",
+      "path": "src/assets/tasks/support_ticket_token.png",
+      "category": "tasks",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_automation.png",
+      "path": "src/assets/ui/icon_automation.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_bottleneck.png",
+      "path": "src/assets/ui/icon_bottleneck.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_client.png",
+      "path": "src/assets/ui/icon_client.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_employee.png",
+      "path": "src/assets/ui/icon_employee.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_money.png",
+      "path": "src/assets/ui/icon_money.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_setting.png",
+      "path": "src/assets/ui/icon_setting.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_task.png",
+      "path": "src/assets/ui/icon_task.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    },
+    {
+      "name": "icon_warning.png",
+      "path": "src/assets/ui/icon_warning.png",
+      "category": "ui",
+      "dimensions": "1024x1024"
+    }
+  ]
+}

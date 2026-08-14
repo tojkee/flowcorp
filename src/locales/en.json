@@ -1,0 +1,1082 @@
+{
+  "app": {
+    "title": "FlowCorp",
+    "eyebrow": "Business process automation tycoon",
+    "intro": "Build a company, watch work flow through departments, find bottlenecks, and improve the system.",
+    "departments": "{count} departments"
+  },
+  "nav": {
+    "label": "Main navigation",
+    "company": "Company",
+    "inbox": "Inbox",
+    "growth": "Growth",
+    "finance": "Finance",
+    "founder": "Founder"
+  },
+  "finance": {
+    "cash": "Cash",
+    "cashFlow": "Cash flow",
+    "expensePerSec": "Payroll & costs",
+    "perSec": "/sec",
+    "throughput": "Throughput",
+    "financing": "Financing",
+    "debt": "Outstanding debt",
+    "noFinancing": "No active loans. Financing options appear here when cash runs low.",
+    "venture": "Venture capital"
+  },
+  "venture": {
+    "pitch": "Raise private capital to scale faster — in exchange for equity, board influence, and growth expectations.",
+    "raise": "Raise {round} (+{amount})",
+    "stage": "Stage",
+    "equity": "Founder equity",
+    "influence": "Investor influence",
+    "pressure": "Investor pressure",
+    "expectation": "Revenue target",
+    "dilutionNote": "You own {equity}% — investors take that share of any acquisition cash-out.",
+    "maxed": "Investors hold significant control. No further rounds are available.",
+    "round": {
+      "seed": "Seed",
+      "seriesA": "Series A",
+      "seriesB": "Series B",
+      "seriesC": "Series C"
+    }
+  },
+  "hud": {
+    "revenue": "Revenue",
+    "expenses": "Expenses",
+    "profit": "Profit",
+    "active": "Active",
+    "reset": "Reset",
+    "settings": "Settings"
+  },
+  "status": {
+    "bottleneck": "Bottleneck",
+    "flowWatch": "Flow Watch",
+    "mainBottleneck": "Main bottleneck",
+    "none": "None",
+    "automation": "Automation"
+  },
+  "advisor": {
+    "title": "CEO Advisor",
+    "cashCritical": "Cash is critically low. Complete orders before spending more.",
+    "cashLow": "Cash is getting low — be careful with new hires.",
+    "bottleneckHire": "{department} is overloaded (−{impact}% revenue). Hire there to clear the queue.",
+    "bottleneckRebalance": "{department} is overloaded (−{impact}% revenue), but cash is tight — move staff there instead.",
+    "watchFlow": "Watch tasks flow to Payment — that is your revenue. Hire where work piles up.",
+    "automation": "{tool} would lift throughput more than another hire right now.",
+    "hireSuggest": "{department} is your tightest department. One more hire should raise throughput.",
+    "grow": "Flow looks healthy. Push toward {stage} to grow revenue.",
+    "action": {
+      "hire": "Hire {department}",
+      "rebalance": "Rebalance staff",
+      "automation": "Open Automation",
+      "evolution": "View growth paths"
+    }
+  },
+  "goal": {
+    "title": "Current goal",
+    "microTitle": "Next win",
+    "reward": "Reward {amount}",
+    "rewardOnlyRep": "Reward",
+    "rewardRep": " +{value} rep",
+    "seconds": "{value}s",
+    "allDone": "Starter goals complete — keep growing!",
+    "viewPaths": "Growth paths",
+    "firstHire": "Hire your first extra employee.",
+    "serveClients": "Serve {target} clients.",
+    "unlockAutomation": "Own {target} automation tools.",
+    "reachSmallBusiness": "Reach the Small Business stage.",
+    "growRevenue": "Reach {target} total revenue.",
+    "completeProjects": "Complete 3 client projects.",
+    "keepSatisfaction": "Keep client satisfaction at 85+ for 20 seconds.",
+    "solveBottleneck": "Clear the current bottleneck.",
+    "reachPositiveProfit": "Reach positive total profit.",
+    "resolveCeoSituation": "Resolve the waiting CEO situation."
+  },
+  "income": {
+    "title": "Income breakdown",
+    "perMin": "/min",
+    "gross": "Orders income",
+    "expenses": "Payroll & operating costs",
+    "contributors": "Departments supporting revenue",
+    "losses": "What is limiting income",
+    "loss": {
+      "bottleneck": "Bottleneck at {department}",
+      "idle": "Idle capacity"
+    }
+  },
+  "moneyFlow": {
+    "title": "Why money changed",
+    "sourceLabel": "Money comes from",
+    "paidProjects": "Completed client projects",
+    "fixFirst": "Fix first",
+    "companyBottleneck": "{department} cuts revenue by {percent}%",
+    "flowHealthy": "No active revenue bottleneck",
+    "topSource": "Top earning source",
+    "biggestLeak": "Biggest money leak",
+    "bottleneckImpact": "Bottleneck cost",
+    "recommendedEffect": "Recommended action",
+    "noPaidProjects": "No client payment in the last minute.",
+    "noLeak": "No significant leak detected.",
+    "noBottleneckCost": "No bottleneck is reducing payouts.",
+    "noActionEffect": "Keep the flow healthy and watch the next payment.",
+    "bottleneckDetail": "{department} reduces every payout by {percent}%.",
+    "trend": {
+      "rising": "Revenue is rising: {current} this minute vs {previous} before.",
+      "falling": "Revenue is falling: {current} this minute vs {previous} before.",
+      "steady": "Revenue is steady: {current} this minute vs {previous} before.",
+      "waiting": "Revenue starts when a client project reaches Payment."
+    },
+    "reason": {
+      "morePayments": "More projects reached Payment in the current minute.",
+      "bottleneck": "The active bottleneck is delaying work and reducing every payout.",
+      "fewerPayments": "Fewer projects reached Payment in the current minute.",
+      "steady": "Paid-project flow is holding at a similar level.",
+      "waiting": "Work is still moving through the company."
+    },
+    "leak": {
+      "operatingCosts": "Payroll and operating costs exceed project income",
+      "bottleneck": "Lost revenue at {department}",
+      "idle": "Payroll spent on idle capacity"
+    },
+    "effect": {
+      "throughput": "{action}: expected throughput +~{percent}%.",
+      "revenue": "{action}: expected revenue recovery ~{percent}%."
+    }
+  },
+  "onboarding": {
+    "title": "Welcome, CEO",
+    "intro": "Your company runs on its own. Your job is to keep work flowing and grow revenue.",
+    "step1": "Watch tasks flow through your departments.",
+    "step2": "Find the department where work piles up — the bottleneck.",
+    "step3": "Hire employees there to clear the queue.",
+    "step4": "Buy automation to boost throughput.",
+    "step5": "Grow revenue and reach the next company stage.",
+    "gotIt": "Got it"
+  },
+  "chapter": {
+    "title": "First client loop",
+    "progress": "Step {step}/{total}",
+    "skip": "Skip",
+    "watchFirstWork": "Watch the first client request enter Sales. Work becomes money only after it reaches Payment.",
+    "findBottleneck": "Work is moving now. The busiest department is the bottleneck: it controls how fast revenue can arrive.",
+    "hireBottleneck": "{department} is the first bottleneck. Hire there ({cost}) so the queue can drain faster.",
+    "queueImproving": "Good. {department} has more capacity now. Watch the queue shrink as tasks move downstream.",
+    "waitForPayment": "The queue is stabilizing. Let the project finish the pipeline so the first payment lands.",
+    "firstPayment": "First paid project complete: {amount} revenue so far. More flow means more cash.",
+    "firstAutomation": "Hiring adds capacity one department at a time. Automation improves the system itself — start with {tool}.",
+    "openGrowth": "You know the loop now: find the bottleneck, add capacity, automate, then grow toward {stage}."
+  },
+  "growth": {
+    "title": "Growth blocked",
+    "limitedBy": "Growth limited by",
+    "solutions": "Ways to fix it",
+    "recommended": "Recommended",
+    "active": "On",
+    "free": "Free",
+    "approx": "~{value}% throughput",
+    "reason": {
+      "bottleneck": "{department} is overloaded, so work cannot move faster.",
+      "cashLow": "Cash reserves are too low to invest in growth.",
+      "softlock": "Cash and capacity are both stuck — use a recovery option below."
+    },
+    "blocker": {
+      "bottleneck": "{department} overload",
+      "cashLow": "Low cash reserves",
+      "idle": "Idle capacity"
+    }
+  },
+  "solution": {
+    "hire": "Hire 1 employee",
+    "automation": "Buy {tool}",
+    "reduceWorkload": "Reduce incoming workload",
+    "wait": "Wait & accumulate cash"
+  },
+  "recovery": {
+    "founderLoan": "Take founder loan (+{amount}, repaid with interest)",
+    "recoveryContract": "Sign recovery contract (advance + high-value projects)"
+  },
+  "clients": {
+    "title": "Active clients",
+    "satisfaction": "{value}% satisfied",
+    "onTrack": "On track",
+    "late": "Late",
+    "emptyTitle": "Pipeline ready",
+    "empty": "No active client projects right now.",
+    "more": "+{n} more in the pipeline",
+    "effect": {
+      "happy": "😊 Bigger projects · more referrals · higher offers",
+      "steady": "🙂 Keep clients happy for bigger projects",
+      "unhappy": "⚠ Smaller projects · fewer referrals"
+    },
+    "fxBudget": "Projects {value}%",
+    "fxReferral": "Referrals {value}%",
+    "fxOffer": "Offers {value}%"
+  },
+  "client": {
+    "novamotors": "Nova Motors",
+    "cornerbakery": "Corner Bakery",
+    "stratosai": "Stratos AI",
+    "meridianbank": "Meridian Bank",
+    "greenleaf": "Greenleaf Goods",
+    "orbitlogistics": "Orbit Logistics",
+    "pulsehealth": "Pulse Health",
+    "summitedu": "Summit Education",
+    "vertexmedia": "Vertex Media",
+    "atlasrealty": "Atlas Realty"
+  },
+  "clientIndustry": {
+    "automotive": "Automotive",
+    "retail": "Retail",
+    "tech": "Technology",
+    "finance": "Finance",
+    "healthcare": "Healthcare",
+    "logistics": "Logistics",
+    "education": "Education",
+    "media": "Media",
+    "realestate": "Real estate"
+  },
+  "project": {
+    "websiteRedesign": "Website Redesign",
+    "prototypeDev": "Prototype Development",
+    "mobileApp": "Mobile App",
+    "marketingCampaign": "Marketing Campaign",
+    "dataMigration": "Data Migration",
+    "supportContract": "Support Contract",
+    "brandRefresh": "Brand Refresh",
+    "automationRollout": "Automation Rollout"
+  },
+  "unlock": {
+    "title": "Next unlock",
+    "reward": {
+      "small-business": "Reward: bigger contracts & first strategic offers",
+      "growing-company": "Reward: mergers & higher valuations",
+      "enterprise": "Reward: IPO & buyout offers",
+      "corporation": "Reward: top-tier strategic paths"
+    }
+  },
+  "effects": {
+    "workflowLines": "Workflow lines",
+    "fastRouting": "Fast routing",
+    "autoInvoices": "Auto invoices",
+    "manual": "Manual workflow"
+  },
+  "stat": {
+    "queue": "Q",
+    "employees": "E",
+    "util": "U",
+    "growth": "G",
+    "throughput": "T",
+    "perMinute": "/m",
+    "queueLong": "Queue",
+    "growthLong": "Growth",
+    "utilLong": "Util"
+  },
+  "actions": {
+    "automation": "Automation",
+    "tools": "{owned}/{total} tools",
+    "buy": "Buy {name}",
+    "allTools": "All tools",
+    "owned": "Owned",
+    "rebalance": "Rebalance",
+    "capacity": "Capacity",
+    "completed": "Completed",
+    "perMin": "{value}/min",
+    "hire": "Hire"
+  },
+  "feedback": {
+    "goalComplete": "✅ Goal · +{amount} · +{reputation} rep",
+    "hire": "✅ {department} · +{value}% capacity",
+    "rebalance": "✅ Moved to {department} · +{value}%",
+    "automation": "✅ {tool} · +{value}% speed · +{slots} slots",
+    "projectPaid": "💰 Project paid · +{amount}",
+    "bottleneckSolved": "✅ {department} unblocked",
+    "loan": "💵 Loan · +{amount}",
+    "recoveryContract": "📦 Recovery deal · +{amount} · {count} projects"
+  },
+  "automationPanel": {
+    "title": "Automation",
+    "tier": "Tier {n}",
+    "era": {
+      "early": "Early · Manual tools",
+      "growing": "Growing · Back-office systems",
+      "ai": "AI Era · AI assistants",
+      "advanced": "Advanced · Autonomous AI"
+    },
+    "installed": "Installed",
+    "locked": "Locked",
+    "close": "Close",
+    "buy": "Buy {cost}",
+    "needs": "Needs {requirements}",
+    "effectTime": "-{value} time",
+    "effectErrors": "-{value} errors",
+    "effectCapacity": "+{value} capacity",
+    "effectMovement": "{value}x movement",
+    "effectValue": "+{value} value"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "gameplay": "Gameplay",
+    "about": "About",
+    "close": "Close"
+  },
+  "guidance": {
+    "title": "Guidance Mode",
+    "mode": {
+      "full": "Full Guidance",
+      "minimal": "Minimal Guidance",
+      "hardcore": "Hardcore"
+    },
+    "desc": {
+      "full": "Recommended for new players.",
+      "minimal": "Only essential information.",
+      "hardcore": "No hints. Run the company yourself."
+    }
+  },
+  "philosophy": {
+    "open": "About FlowCorp",
+    "title": "About FlowCorp",
+    "close": "Close",
+    "principle": "Don’t build a dashboard disguised as a game.\nBuild a game that can eventually become a business operating system.",
+    "founderNote": "Founder’s Note",
+    "gameFirst": "Game first. Business second.",
+    "body1": "FlowCorp starts as a living company simulator.",
+    "body2": "The long-term vision is to help people understand, manage, and improve businesses through play.",
+    "chain": "Games create engagement.\nEngagement creates understanding.\nUnderstanding creates better decisions.",
+    "principleTitle": "Core principle",
+    "principleEngaging": "If a feature makes the game more engaging, it belongs.",
+    "principleDashboard": "If a feature only makes the game look like a boring dashboard, reconsider it.",
+    "principleClosing": "FlowCorp stays a game first, and only later evolves into a real business operating system.",
+    "footerTitle": "FlowCorp Vision",
+    "footer": "A company simulator today.\nA business operating system tomorrow."
+  },
+  "canvas": {
+    "payment": "PAYMENT",
+    "revenue": "Revenue",
+    "autoInvoice": "AUTO INVOICE"
+  },
+  "company": {
+    "it-company": { "name": "IT Company", "tagline": "Ship client projects through a technical delivery pipeline." },
+    "marketing-agency": { "name": "Marketing Agency", "tagline": "Turn briefs into campaigns, reports, and repeat revenue." },
+    "ecommerce-company": { "name": "E-Commerce Company", "tagline": "Route orders from stock to support, returns, and payment." },
+    "manufacturing": { "name": "Manufacturing Company", "tagline": "Turn raw orders into finished goods on the factory floor." },
+    "logistics": { "name": "Logistics Company", "tagline": "Move shipments from dispatch to delivery and payment." },
+    "coffee-shop": { "name": "Coffee Shop", "tagline": "Serve every customer fast before the line backs up." },
+    "digital-agency": { "name": "Digital Agency", "tagline": "Take small briefs from pitch to delivery and invoice." },
+    "tech-startup": { "name": "Tech Startup", "tagline": "Build features, win funding, and scale toward an exit." },
+    "game-studio": { "name": "Game Studio", "tagline": "Ship polished builds without burning out the team." },
+    "enterprise-corp": { "name": "Enterprise Corporation", "tagline": "Run a public-scale corporation with a board and shareholders." },
+    "holding-company": { "name": "Holding Company", "tagline": "Own a portfolio of businesses and move capital between them." },
+    "investment-fund": { "name": "Investment Fund", "tagline": "Source deals, take equity, and live off portfolio returns." },
+    "government-contractor": { "name": "Government Contractor", "tagline": "Win national tenders and survive the audits that follow." }
+  },
+  "department": {
+    "sales": "Sales",
+    "analysis": "Analysis",
+    "development": "Development",
+    "qa": "QA",
+    "support": "Support",
+    "accounting": "Accounting",
+    "strategy": "Strategy",
+    "copywriting": "Copywriting",
+    "design": "Design",
+    "advertising": "Advertising",
+    "analytics": "Analytics",
+    "procurement": "Procurement",
+    "warehouse": "Warehouse",
+    "marketing": "Marketing",
+    "production": "Production",
+    "quality-control": "Quality Control",
+    "dispatch": "Dispatch",
+    "operations": "Operations",
+    "tracking": "Tracking"
+  },
+  "automationTools": {
+    "spreadsheet": { "name": "Spreadsheet", "desc": "Shared spreadsheets keep every queue visible.", "office": "Baseline manual workflow." },
+    "crm": { "name": "CRM", "desc": "Tracks every lead and connects the front office.", "office": "Draws automated workflow lines between connected desks." },
+    "task-tracker": { "name": "Task Tracker", "desc": "Auto-routes work items so tasks never wait for a handoff.", "office": "Tasks move between departments much faster." },
+    "accounting-system": { "name": "Accounting System", "desc": "Generates invoices automatically and closes payments fast.", "office": "Accounting auto-generates invoices and clears its queue." },
+    "shared-drive": { "name": "Shared Drive", "desc": "One source of truth — no more lost files or duplicate work.", "office": "Documents hand off without waiting." },
+    "erp": { "name": "ERP Platform", "desc": "One platform runs the whole company end to end.", "office": "Every department shares one connected workflow." },
+    "business-intelligence": { "name": "Business Intelligence", "desc": "Dashboards turn data into better, higher-value decisions.", "office": "Live dashboards glow on the office walls." },
+    "ocr": { "name": "Document Recognition", "desc": "Reads paperwork automatically — no more manual data entry.", "office": "Paper documents are scanned and filed instantly." },
+    "ai-support": { "name": "AI Customer Support", "desc": "An AI agent answers customers around the clock.", "office": "AI terminals handle the support queue on their own." },
+    "ai-sales": { "name": "AI Sales Agent", "desc": "An AI closes and upsells leads while you sleep.", "office": "The sales floor runs on AI assistants." },
+    "ai-qa": { "name": "AI Quality Assurance", "desc": "AI catches defects before they ever reach a client.", "office": "AI review terminals flag issues automatically." },
+    "ai-marketing": { "name": "AI Marketing Generator", "desc": "Generates campaigns, copy, and creatives on demand.", "office": "Marketing output streams from an AI studio." },
+    "ai-analyst": { "name": "AI Business Analyst", "desc": "Forecasts demand and prices work for maximum value.", "office": "Predictive models steer the whole company." },
+    "ai-ops-manager": { "name": "AI Operations Manager", "desc": "An AI continuously rebalances staff and clears bottlenecks.", "office": "The whole floor self-optimizes in real time." },
+    "ai-cfo": { "name": "AI CFO", "desc": "Optimizes pricing, cash, and margins automatically.", "office": "Finance runs itself from an AI command desk." },
+    "ai-strategy": { "name": "AI Strategy Advisor", "desc": "Plots the company's next moves and spots opportunities.", "office": "A strategy AI charts the company's future." },
+    "autonomous-departments": { "name": "Autonomous Departments", "desc": "Entire departments run themselves — you only set direction.", "office": "The office is a calm, fully automated AI corporation." }
+  },
+  "achievement": {
+    "unlocked": "Achievement unlocked",
+    "first-profit": { "title": "In the Black", "desc": "Your company turned its first profit." },
+    "first-automation": { "title": "Automated", "desc": "You installed your first automation tool." },
+    "small-business": { "title": "Small Business", "desc": "You grew into a real small business." },
+    "first-manager": { "title": "Delegated", "desc": "You hired your first Operations Manager." },
+    "first-funding": { "title": "Funded", "desc": "You raised your first investment round." },
+    "growing-company": { "title": "Scaling Up", "desc": "Your company reached the growing stage." },
+    "first-million": { "title": "Millionaire", "desc": "Total revenue passed one million." },
+    "market-leader": { "title": "Market Leader", "desc": "You captured half of your market." },
+    "enterprise": { "title": "Enterprise", "desc": "Your company became an enterprise." },
+    "ai-era": { "title": "AI Era", "desc": "Your first AI assistant came online." },
+    "corporation": { "title": "Corporation", "desc": "You built a full corporation." },
+    "autonomous": { "title": "Fully Autonomous", "desc": "Your departments now run themselves." }
+  },
+  "inbox": {
+    "title": "Inbox",
+    "emptyTitle": "All clear",
+    "empty": "No notifications yet. Your company will let you know when something needs attention.",
+    "enable": "Enable notifications",
+    "enabled": "Browser notifications are on.",
+    "blocked": "Notifications are blocked in your browser settings.",
+    "close": "Close",
+    "justNow": "just now",
+    "minutesAgo": "{n} min ago",
+    "hoursAgo": "{n} h ago"
+  },
+  "away": {
+    "title": "While you were away",
+    "duration": "Away for {duration}",
+    "revenue": "Revenue earned",
+    "expenses": "Expenses paid",
+    "profit": "Profit",
+    "tasks": "Tasks completed",
+    "bottleneck": "Bottleneck",
+    "allClear": "Everything ran smoothly while you were gone.",
+    "capped": "Offline progress is capped at {hours} h.",
+    "continue": "Continue"
+  },
+  "report": {
+    "title": "Company report",
+    "period": "Last {duration}",
+    "reviewed": "Reviewed",
+    "revenue": "Revenue",
+    "profit": "Profit",
+    "cashChange": "Cash change",
+    "projects": "Projects",
+    "satisfaction": "Client satisfaction",
+    "bottleneck": "Biggest bottleneck",
+    "bottleneckValue": "{department} · {count} waiting",
+    "noBottleneck": "No active bottleneck",
+    "improvementLabel": "Best improvement",
+    "riskLabel": "New risk",
+    "nextAction": "Recommended next action",
+    "keepGoing": "Keep the company moving toward its next stage.",
+    "improvement": {
+      "stage": "Reached {stage}.",
+      "automation": "Installed {tool}.",
+      "hiring": "Team grew by {count}.",
+      "satisfaction": "Client satisfaction rose {value} points.",
+      "queueReduced": "Queues shrank by {count} tasks.",
+      "projects": "Delivered {count} projects.",
+      "revenue": "Added {amount} in revenue.",
+      "steady": "Operations stayed steady.",
+      "none": "Operations stayed steady."
+    },
+    "risk": {
+      "cashNegative": "Cash is below zero.",
+      "dynamicEvent": "New event: {event}.",
+      "satisfaction": "Client satisfaction fell {value} points.",
+      "bottleneck": "{department} became more constrained.",
+      "queueGrowth": "Queues grew by {count} tasks.",
+      "morale": "Morale is down to {value}%.",
+      "loss": "The period lost {amount}.",
+      "cashDrop": "Cash fell by {amount}.",
+      "none": "No new critical risk."
+    }
+  },
+  "duration": {
+    "hm": "{h}h {m}m",
+    "m": "{m}m",
+    "ms": "{m}m {s}s",
+    "lessMinute": "less than a minute"
+  },
+  "notify": {
+    "cashNegative": { "title": "Cash is negative", "body": "Your balance has dropped below zero. Cut expenses or grow revenue." },
+    "cashLow": { "title": "Cash is running low", "body": "Your balance is getting low. Keep an eye on expenses." },
+    "severeBottleneck": { "title": "Severe bottleneck", "body": "{department} is badly overloaded and slowing the whole company." },
+    "queueOverloaded": { "title": "Queue overloaded", "body": "{department} has {count} tasks waiting. Hire or rebalance to keep flow." },
+    "automationAvailable": { "title": "Automation available", "body": "You can now afford {tool}. It will improve your workflow." },
+    "performanceDropping": { "title": "Performance dropping", "body": "Expenses are outrunning revenue. The company is losing money." },
+    "stageAdvanced": { "title": "Company grew", "body": "Your company is now a {stage}." },
+    "acquisitionOffer": { "title": "Acquisition offer", "body": "{buyer} wants to acquire your company for {amount}." },
+    "mergerOffer": { "title": "Merger offer", "body": "{buyer} proposes a merger worth {amount}." },
+    "pathsUnlocked": { "title": "Strategic paths unlocked", "body": "Your company can now choose its destiny. Open Company Evolution." },
+    "clientAtRisk": { "title": "Client at risk", "body": "Client satisfaction is slipping — late deliveries are costing you reputation." },
+    "clientDecisionWaiting": { "title": "Client decision waiting", "body": "A client issue needs your decision now. Open the CEO Inbox." },
+    "riskyCeoSituation": { "title": "Risky CEO situation", "body": "A high-stakes situation is waiting for your decision." },
+    "majorContractDeadline": { "title": "Major contract at risk", "body": "{project} for {client} is due in {seconds}s. Clear the bottleneck now." },
+    "decisionWaiting": { "title": "Decision waiting", "body": "A decision needs your input as CEO. Open the game to choose." },
+    "companyReportReady": { "title": "Company report ready", "body": "Your latest progress summary and next recommendation are ready." },
+    "offlineProgressReady": { "title": "Your company made progress", "body": "Projects completed: {projects}. Revenue earned: {revenue}." },
+    "dynamicEventGood": { "title": "{event}", "body": "{detail}" },
+    "dynamicEventBad": { "title": "{event}", "body": "{detail}" },
+    "specialistAvailable": { "title": "Star talent available", "body": "{specialist} is open to an offer. Sign them in the Talent panel." },
+    "competitorEvent": { "title": "Competitor news", "body": "{competitor} {detail}" },
+    "industryTrend": { "title": "{trend}", "body": "{detail}" }
+  },
+  "dynamicEvent": {
+    "employeeQuit": { "name": "Employee quit", "body": "A team member left — a department lost capacity. Consider re-hiring." },
+    "majorClientComplaint": { "name": "Major client complaint", "body": "A key client is furious about service. Client satisfaction dropped." },
+    "serverOutage": { "name": "Server outage", "body": "An outage cost money and rattled clients." },
+    "viralSuccess": { "name": "Viral success", "body": "Your work went viral — new leads and reputation are surging." },
+    "negativePress": { "name": "Negative press", "body": "A bad story hit the press. Reputation took a hit." },
+    "industryBoom": { "name": "Industry boom", "body": "Demand is surging across the industry — fresh leads arrived." },
+    "industryDownturn": { "name": "Industry downturn", "body": "An industry slump dented your reputation." },
+    "breakthrough": { "name": "R&D breakthrough", "body": "Your innovation culture paid off — high-value work and reputation arrived." },
+    "qualityAward": { "name": "Quality award", "body": "Your quality focus won an award — reputation and client satisfaction rose." },
+    "growthSpurt": { "name": "Growth spurt", "body": "Your fast-growth push pulled in a wave of new projects." },
+    "efficiencyWin": { "name": "Efficiency win", "body": "Your lean operation banked a cost-saving windfall." },
+    "referralWave": { "name": "Referral wave", "body": "Your devoted clients sent a wave of referrals." }
+  },
+  "evolution": {
+    "title": "Company Evolution",
+    "open": "Company Evolution",
+    "close": "Close",
+    "currentStage": "Current stage",
+    "nextStage": "Next stage",
+    "maxStage": "Top lifecycle stage reached.",
+    "paths": "Strategic paths",
+    "choosePath": "Choose this path",
+    "activePath": "Active path",
+    "viaOffer": "Arrives as an offer",
+    "locked": "Locked",
+    "operatingLayer": "Operating layer",
+    "metric": {
+      "revenue": "Total revenue",
+      "employees": "Employees",
+      "completedTasks": "Tasks completed",
+      "reputation": "Reputation",
+      "automationLevel": "Automation level",
+      "stability": "Operational stability",
+      "satisfaction": "Client satisfaction",
+      "marketPresence": "Market presence"
+    }
+  },
+  "stage": {
+    "startup": { "name": "Startup", "desc": "A few people, little cash, and survival on the line. Every client counts." },
+    "small-business": { "name": "Small Business", "desc": "Stable revenue, real departments, and your first repeat clients." },
+    "growing-company": { "name": "Growing Company", "desc": "More people, bigger contracts, more bottlenecks — and competitors start to notice." },
+    "enterprise": { "name": "Enterprise", "desc": "Major clients and strategic decisions. Acquisition, merger and government paths open up." },
+    "corporation": { "name": "Corporation", "desc": "Large-scale operations and board-level decisions across multiple business units." }
+  },
+  "path": {
+    "sell": { "name": "Sell the Company", "desc": "Accept an acquisition offer, bank the payout, and continue your founder career." },
+    "merge": { "name": "Merge with a Corporation", "desc": "Big capital and reach, but more bureaucracy and less control. Arrives as a merger offer." },
+    "corporation": { "name": "Become a Corporation", "desc": "Stay independent: bigger clients and higher value, with board-level overhead." },
+    "ipo": { "name": "Go Public", "desc": "Open the shareholder layer: stock price, analyst reputation, quarterly expectations, and investor pressure." },
+    "government": { "name": "Government Contractor", "desc": "Large, predictable contracts and prestige — but slower flow and bureaucracy." },
+    "holding": { "name": "Founder Portfolio", "desc": "Turn past companies into portfolio assets. Active multi-company management is future work." },
+    "product": { "name": "Product / SaaS Empire", "desc": "Shift from services toward products and recurring revenue." },
+    "graduated": { "name": "Graduated", "desc": "You grew this company to maturity and graduated from it as a founder." }
+  },
+  "tier": {
+    "beginner": { "name": "Beginner", "summary": "Learn the fundamentals: hiring, bottlenecks, clients, automation, and growth." },
+    "intermediate": { "name": "Intermediate", "summary": "Scale up: investors, venture capital, valuation, and the option to sell or merge." },
+    "advanced": { "name": "Advanced", "summary": "Corporate strategy: IPO and a board, government contracts, and a multi-company empire." }
+  },
+  "careerTier": {
+    "title": "Career Tier",
+    "beginnerLocked": "Selling, mergers, investors, and IPO are unlocked in later company tiers. Grow this company, then graduate to move up.",
+    "graduateReady": "This company is mature. Graduate as a founder to bank the prestige and unlock the next tier of companies.",
+    "graduate": "Graduate & move on",
+    "play": "Play",
+    "view": "View",
+    "locked": "Locked",
+    "difficulty": "Difficulty {n}/3",
+    "requirements": "To unlock",
+    "unlocks": "Unlocks",
+    "detailClose": "Close",
+    "req": {
+      "ventures": "Companies",
+      "prestige": "Prestige level"
+    },
+    "reward": {
+      "beginner": "The fundamentals: hiring, bottlenecks, clients, automation.",
+      "intermediate": "Investors · Funding · Sell or merge",
+      "advanced": "IPO · Board · Government · Holding"
+    },
+    "lock": {
+      "ventures": "Complete {count} company(ies) to unlock this tier.",
+      "prestige": "Reach founder prestige level {level} to unlock.",
+      "generic": "Keep building your founder career to unlock."
+    }
+  },
+  "offer": {
+    "acquisition": { "title": "Acquisition offer", "body": "{buyer} wants to acquire your company for {amount}." },
+    "merger": { "title": "Merger offer", "body": "{buyer} proposes a merger worth {amount}." },
+    "amount": "Offer",
+    "reasonTitle": "Why they are interested",
+    "accept": "Accept",
+    "negotiate": "Negotiate",
+    "negotiateLocked": "Merger negotiation unlocks at prestige level 4.",
+    "reject": "Reject",
+    "reason": {
+      "automation": "Strong automation",
+      "satisfaction": "High client satisfaction",
+      "reputation": "Excellent reputation",
+      "market": "Growing market presence",
+      "growth": "Fast, profitable growth"
+    }
+  },
+  "buyer": {
+    "megacorp": "MegaCorp",
+    "nimbus": "Nimbus Group",
+    "atlas": "Atlas Holdings",
+    "vertex": "Vertex Industries",
+    "northstar": "NorthStar Capital"
+  },
+  "outcome": {
+    "sold": { "title": "Company sold", "body": "You sold your company to {buyer} for {amount}. The run is complete." },
+    "newCompany": "Start a new company"
+  },
+  "founder": {
+    "traitsTitle": "Founder traits",
+    "traitsNote": "Permanent strengths earned over your career. They carry to every company you found.",
+    "skillsTitle": "Skill tree",
+    "skillsNote": "Earn a skill point each founder level. Spend points to permanently sharpen how you run companies.",
+    "skillPoints": "{n} points to spend",
+    "skillLevel": "Level {level} of {max}",
+    "unlocked": "Unlocked",
+    "locked": "Locked",
+    "maxed": "Maxed",
+    "upgrade": "Upgrade"
+  },
+  "founderTrait": {
+    "visionary": { "name": "Visionary", "perk": "Bigger opportunities — projects are worth more (+6% value).", "unlock": "Unlocks after founding 2 companies." },
+    "operator": { "name": "Operator", "perk": "A tighter operation — faster work and lower running costs.", "unlock": "Unlocks after completing a merger." },
+    "salesExpert": { "name": "Sales Expert", "perk": "Proven deal-maker — more inbound work (faster leads).", "unlock": "Unlocks after selling a company." },
+    "financialGenius": { "name": "Financial Genius", "perk": "More from every dollar — lower running costs (−6%).", "unlock": "Unlocks after taking a company public." }
+  },
+  "founderSkill": {
+    "hiring": { "name": "Hiring", "perk": "Cheaper hires (−5% per level)." },
+    "fundraising": { "name": "Fundraising", "perk": "More starting cash for future companies (+5% per level)." },
+    "automation": { "name": "Automation", "perk": "Cheaper automation tools (−5% per level)." },
+    "negotiation": { "name": "Negotiation", "perk": "Higher buyout offers (+5% per level)." }
+  },
+  "empire": {
+    "live": "Live now",
+    "paused": "Paused",
+    "active": "Active",
+    "switch": "Switch to"
+  },
+  "holding": {
+    "title": "Holding company",
+    "note": "Run several companies. One is live; others pause and catch up when you switch back.",
+    "companies": "Subsidiaries",
+    "totalCash": "Total cash",
+    "totalRevenue": "Total revenue",
+    "synergy": "Synergy",
+    "synergyOn": "+{value}% across all",
+    "synergyNone": "Run more to unlock",
+    "allocate": "Fund",
+    "appointExec": "Appoint exec",
+    "execAppointed": "Executive-run",
+    "acquireTitle": "Found another subsidiary"
+  },
+  "legacy": {
+    "title": "Founder Legacy",
+    "open": "Legacy",
+    "close": "Close",
+    "profile": "Founder",
+    "level": "Level {level}",
+    "prestige": "Prestige",
+    "legacyPoints": "Legacy points",
+    "founderExperience": "Founder XP",
+    "career": "Career record",
+    "companiesFounded": "Founded",
+    "companiesSold": "Sold",
+    "mergers": "Mergers",
+    "ipos": "IPOs",
+    "totalEmployees": "Peak employees",
+    "totalRevenue": "Total revenue",
+    "bonuses": "Legacy bonuses",
+    "timeline": "Company history",
+    "emptyTimelineTitle": "Your story starts here",
+    "emptyTimeline": "No founder history yet.",
+    "unlocks": "Prestige unlocks",
+    "unlocked": "Unlocked",
+    "unlockLevel": "Level {level}",
+    "bonus": {
+      "startingReputation": "Starting reputation",
+      "startingCash": "Starting cash",
+      "investorConfidence": "Investor confidence",
+      "complianceScore": "Compliance score",
+      "hiringAttractiveness": "Hiring attractiveness",
+      "points": "+{value} pts",
+      "percent": "+{value}%",
+      "cash": "+{value}"
+    },
+    "event": {
+      "founded": "Founded {company}",
+      "acquired": "{company} acquired by {buyer} for {amount}",
+      "merged": "{company} merged with {buyer}",
+      "ipo": "{company} went public at a {amount} valuation",
+      "government": "{company} became a national contractor",
+      "portfolio": "{company} entered the founder portfolio",
+      "graduated": "Graduated from {company} as a founder"
+    }
+  },
+  "prestigeUnlock": {
+    "founder-basics": { "name": "Founder basics", "desc": "Every new company starts with bonus reputation and cash that grows each prestige tier." },
+    "rare-contracts": { "name": "Rare contracts", "desc": "Occasional higher-value leads appear, and acquisition offers gain an 8% premium." },
+    "investor-access": { "name": "Investor access", "desc": "Elite manager candidates cut hiring costs, and IPO requirements ease." },
+    "public-sector-access": { "name": "Public sector access", "desc": "Government eligibility improves, and merger offers become negotiable." },
+    "founder-portfolio": { "name": "Founder Portfolio", "desc": "The holding / portfolio path opens as an honest MVP for tracking owned legacy assets." }
+  },
+  "legacyOutcome": {
+    "acquisition": {
+      "title": "Successful exit",
+      "body": "{buyer} acquired the company for {amount}. The company joins their corporation, and your founder profile gains prestige."
+    },
+    "merger": {
+      "title": "Merger completed",
+      "body": "The merger with {buyer} is complete. Integration challenges are now active."
+    },
+    "ipo": {
+      "title": "IPO achieved",
+      "body": "The company is public at a {amount} valuation. Shareholders and quarterly expectations are now active."
+    },
+    "government": {
+      "title": "National contractor",
+      "body": "The company unlocked national contracts, audits, compliance systems, and public reputation."
+    },
+    "graduation": {
+      "title": "Founder graduated",
+      "body": "You grew this company to maturity and graduated as a founder. Your prestige rises and a new tier of companies is within reach."
+    },
+    "transitionComplete": {
+      "title": "Transition completed",
+      "body": "The acquired company completed its transition. Your founder profile gained extra reputation and legacy progress."
+    },
+    "transitionRough": {
+      "title": "Transition closed",
+      "body": "The transition finished with some friction. You still gained experience, but the legacy reward was smaller."
+    },
+    "portfolio": {
+      "title": "Founder Portfolio opened",
+      "body": "Your companies now appear as portfolio assets. Full active multi-company management is future work."
+    },
+    "continue": "Stay and operate",
+    "newCompany": "Found next company",
+    "transition": "Stay as transition CEO",
+    "negotiateTerms": "Negotiate better terms",
+    "negotiate": {
+      "success": "The buyer improved their offer. Payout and prestige increased.",
+      "failed": "The buyer refused and trust dropped — integration will be harder if you stay on."
+    }
+  },
+  "public": {
+    "stockPrice": "Stock price",
+    "shareholders": "Shareholder confidence",
+    "quarterly": "Quarterly expectation",
+    "pressure": "Investor pressure",
+    "board": "Board alignment",
+    "guidanceLabel": "Guidance",
+    "guidance": {
+      "conservative": "Conservative",
+      "balanced": "Balanced",
+      "aggressive": "Aggressive"
+    },
+    "activist": {
+      "costCuts": "An activist investor is demanding deep cost cuts. Resolve it on the Growth screen.",
+      "boardSeat": "An activist investor is demanding a board seat. Resolve it on the Growth screen.",
+      "buyback": "An activist investor is demanding a share buyback. Resolve it on the Growth screen."
+    }
+  },
+  "integration": {
+    "culture": "Culture conflict",
+    "morale": "Staff morale",
+    "duplicated": "Duplicate depts",
+    "restructuring": "Restructuring debt",
+    "progress": "Integration progress",
+    "synergy": "Synergy",
+    "politics": "Corporate politics",
+    "leadership": "Leadership conflict"
+  },
+  "government": {
+    "contracts": "National contracts",
+    "auditRisk": "Audit risk",
+    "compliance": "Compliance score",
+    "publicRep": "Public reputation",
+    "pendingPayment": "Pending payment",
+    "tenderValue": "Contract value {value}",
+    "competitors": "{count} rival bidders",
+    "competition": {
+      "low": "Low competition",
+      "medium": "Moderate competition",
+      "high": "Fierce competition"
+    }
+  },
+  "acquisitionTransition": {
+    "title": "Transition CEO objectives",
+    "days": "Days left",
+    "morale": "Morale",
+    "buyerTrust": "Buyer trust",
+    "clientRetention": "Client retention",
+    "systemsIntegration": "Systems integration"
+  },
+  "portfolio": {
+    "title": "Founder Portfolio",
+    "assets": "Portfolio assets",
+    "active": "Active company",
+    "count": "Companies",
+    "totalValuation": "Total valuation",
+    "activeTag": "operating now",
+    "role": {
+      "active": "Operating",
+      "acquired": "Acquired",
+      "merged": "Merged",
+      "public": "Public",
+      "government": "National contractor",
+      "archived": "Archived"
+    },
+    "mvpNote": "An honest MVP: this is a read-only ledger of your companies as legacy assets. Running and switching between several live companies at once is future work."
+  },
+  "strategicEvent": {
+    "title": "Board decision",
+    "acquisitionSystems": { "title": "Buyer systems rollout", "body": "The buyer wants faster integration, but employees and clients are nervous." },
+    "mergeDepartments": { "title": "Duplicate departments", "body": "Both companies have overlapping teams. Integration needs a staffing call." },
+    "cultureConflict": { "title": "Culture conflict", "body": "Teams disagree about process ownership and decision rights." },
+    "clientOwnership": { "title": "Client ownership conflict", "body": "Both legacy sales teams claim the same key accounts." },
+    "restructuring": { "title": "Restructuring decision", "body": "Merger restructuring debt is piling up. How aggressively do you pay it down?" },
+    "leadershipOverlap": { "title": "Leadership overlap", "body": "Both companies kept a department head for the same team. Someone has to lead." },
+    "corporatePolitics": { "title": "Corporate politics", "body": "Legacy factions are jockeying for influence across the merged company. Defuse the politics before it stalls the integration." },
+    "ipoQuarterReview": { "title": "Quarterly review", "body": "Shareholders are reviewing revenue, profit, reputation, and operational pressure." },
+    "ipoProfitQuality": { "title": "Profit or quality", "body": "Investors want margin improvement, but client quality could suffer." },
+    "ipoIssueShares": { "title": "Capital raise", "body": "The board can issue new shares for cash or preserve founder control." },
+    "ipoGuidance": { "title": "Quarterly guidance", "body": "Set the guidance you give investors for next quarter. A higher bar excites the market but raises the stakes." },
+    "ipoBoardMeeting": { "title": "Board of directors", "body": "The board has lost confidence in the CEO and called a meeting. Win them back before they act." },
+    "ipoShareholderVote": { "title": "Shareholder vote", "body": "Shareholders have tabled a proposal. How do you respond before it goes to a vote?" },
+    "ipoActivist": { "title": "Activist investor", "body": "An activist has taken a stake and is pushing demands publicly. Settle, fight, or buy them out." },
+    "govContractOffer": { "title": "Open tender", "body": "A government agency has opened a national contract for bids. Win it against the competition — your bid stance decides your odds, payout, and scrutiny." },
+    "govAuditNotice": { "title": "Audit notice", "body": "A public-sector auditor is reviewing your controls." },
+    "govComplianceUpgrade": { "title": "Compliance upgrade", "body": "A new rule can be handled now or delayed at higher audit risk." },
+    "govCertification": { "title": "Industry certification", "body": "An accredited certification is available. It is costly but proves your compliance and lowers scrutiny." },
+    "govWhistleblower": { "title": "Whistleblower report", "body": "An internal report alleges a compliance lapse. Investigate it properly or downplay it." },
+    "govDeadlinePressure": { "title": "Contract deadline", "body": "A national contract is behind schedule and payment depends on delivery." }
+  },
+  "strategicChoice": {
+    "protectMorale": { "label": "Protect morale", "desc": "Spend cash to keep people steady." },
+    "pushIntegration": { "label": "Push integration", "desc": "Move faster, but morale drops." },
+    "clientAssurance": { "label": "Reassure clients", "desc": "Spend cash to protect retention." },
+    "mergeDepartments": { "label": "Merge departments", "desc": "Reduce duplication and speed integration." },
+    "keepBoth": { "label": "Keep both for now", "desc": "Lower culture pressure, raise costs." },
+    "cutRedundancy": { "label": "Cut redundancy", "desc": "Lower costs, raise culture conflict." },
+    "jointWorkshops": { "label": "Joint workshops", "desc": "Spend cash to reduce culture conflict." },
+    "strongRules": { "label": "Set strict rules", "desc": "Faster integration, more friction." },
+    "letTeamsSettle": { "label": "Let teams settle", "desc": "Less friction, slower progress." },
+    "unifiedAccounts": { "label": "Unify accounts", "desc": "Cleaner ownership and better reputation." },
+    "splitAccounts": { "label": "Split accounts", "desc": "Less conflict, slower sales flow." },
+    "premiumSupport": { "label": "Premium support", "desc": "Spend cash to protect reputation." },
+    "payoffDebt": { "label": "Pay off debt", "desc": "Spend cash to clear restructuring debt fast." },
+    "phasedRestructure": { "label": "Phased restructure", "desc": "Cut debt gradually, small morale dip, lower costs." },
+    "deferRestructure": { "label": "Defer restructuring", "desc": "Protect morale now, but debt grows." },
+    "promoteOne": { "label": "Promote one leader", "desc": "Decisive and fast, but the other side resents it." },
+    "coLeadership": { "label": "Shared leadership", "desc": "Calms culture and morale, slows integration." },
+    "externalHire": { "label": "Hire an outside lead", "desc": "Spend cash for a neutral leader who defuses the overlap and the politics around it." },
+    "mediateFactions": { "label": "Mediate the factions", "desc": "Spend cash on mediation: the strongest way to cut politics and lift morale." },
+    "consolidatePower": { "label": "Consolidate control", "desc": "Centralize power: cuts politics and pushes integration, but heavy-handed (morale + culture cost)." },
+    "openForum": { "label": "Hold an open forum", "desc": "Free — modestly calms politics and morale, but slows progress." },
+    "acceptQuarterPlan": { "label": "Accept review", "desc": "Let market reaction hit stock and confidence." },
+    "resetGuidance": { "label": "Reset guidance", "desc": "Lower expectations at a confidence cost." },
+    "shortTermProfit": { "label": "Prioritize profit", "desc": "Improve margin, risk reputation." },
+    "longTermQuality": { "label": "Protect quality", "desc": "Raise costs, improve reputation." },
+    "issueShares": { "label": "Issue shares", "desc": "Raise cash, increase investor pressure." },
+    "preserveControl": { "label": "Preserve control", "desc": "Avoid dilution, disappoint investors." },
+    "guidanceConservative": { "label": "Conservative guidance", "desc": "Lower the bar — easier to beat, but the board reads it as unambitious." },
+    "guidanceBalanced": { "label": "Balanced guidance", "desc": "A realistic target with even risk and reward." },
+    "guidanceAggressive": { "label": "Aggressive guidance", "desc": "Raise the bar — excites investors, but missing it hurts more." },
+    "boardBuyback": { "label": "Authorize a buyback", "desc": "Spend cash to realign the board and reassure investors." },
+    "boardGrantSeat": { "label": "Grant a board seat", "desc": "Cede a seat: strongly realigns the board, but a control concession." },
+    "boardDefendStrategy": { "label": "Defend your strategy", "desc": "Free — wins the board over if your standing is strong, backfires if not." },
+    "backProposal": { "label": "Back the proposal", "desc": "Approve it (a dividend): costs cash, but confidence and the board rise." },
+    "negotiateProposal": { "label": "Negotiate terms", "desc": "A modest concession that calms investors." },
+    "rejectProposal": { "label": "Put it to a vote", "desc": "Free — you win on strong confidence, lose face on weak." },
+    "appeaseActivist": { "label": "Settle with the activist", "desc": "Pay to meet the demand: relieves pressure, dents reputation." },
+    "fightActivist": { "label": "Fight the proxy battle", "desc": "Free — you win with a strong board, lose a seat if weak." },
+    "buybackActivist": { "label": "Buy them out", "desc": "Expensive share buyback that defuses the activist and lifts the stock." },
+    "bidAggressive": { "label": "Aggressive bid", "desc": "Undercut rivals: best odds to win, but thinner payout and higher audit risk." },
+    "bidStandard": { "label": "Standard bid", "desc": "A balanced bid — fair odds, fair payout." },
+    "bidPremium": { "label": "Premium bid", "desc": "Bid high on quality: bigger payout and reputation, but harder to win." },
+    "declineContract": { "label": "Decline the tender", "desc": "Stay lean and lower scrutiny." },
+    "pursueCertification": { "label": "Pursue certification", "desc": "Spend big for a major compliance and reputation boost." },
+    "skipCertification": { "label": "Skip certification", "desc": "Save cash now, accept higher audit risk." },
+    "investigateReport": { "label": "Investigate the report", "desc": "Spend to address it: stronger compliance, a short-term public hit." },
+    "downplayReport": { "label": "Downplay the report", "desc": "Cheap now, but riskier and damaging if you're audited." },
+    "fullAuditPrep": { "label": "Full audit prep", "desc": "Spend cash to reduce audit risk." },
+    "minimalAuditPrep": { "label": "Minimal prep", "desc": "Save cash, raise audit risk." },
+    "buyComplianceUpgrade": { "label": "Upgrade compliance", "desc": "Spend cash for a stronger score." },
+    "delayComplianceUpgrade": { "label": "Delay upgrade", "desc": "Save cash now, accept higher risk." },
+    "rushDelivery": { "label": "Rush delivery", "desc": "Get paid, risk compliance damage." },
+    "requestExtension": { "label": "Request extension", "desc": "Lower audit risk, hurt public reputation." }
+  },
+  "morale": {
+    "title": "Team morale",
+    "happy": "{value}% happy",
+    "raise": "Give raises ({cost})"
+  },
+  "competitor": {
+    "apex": "Apex Systems",
+    "zenith": "Zenith Labs",
+    "quantal": "Quantal",
+    "ironwood": "Ironwood Co"
+  },
+  "competitorEvent": {
+    "launchedProduct": "launched a new product, raising the bar.",
+    "hiredTalent": "poached top talent from the market.",
+    "acquired": "was acquired — one fewer rival in the market."
+  },
+  "marketShare": {
+    "title": "Market position",
+    "share": "{value}% market share",
+    "tier": {
+      "leader": "Market leader",
+      "challenger": "Challenger",
+      "niche": "Niche player"
+    },
+    "fxLeads": "Leads {value}%",
+    "fxValuation": "Valuation {value}%",
+    "fxReputation": "Reputation {value}"
+  },
+  "industryTrend": {
+    "title": "Industry climate",
+    "ends": "Ends in {sec}s",
+    "none": "Stable — no major industry trend right now.",
+    "aiBoom": { "name": "AI Boom", "body": "An AI gold rush floods the industry with demand — more leads, richer projects, and a faster market." },
+    "recession": { "name": "Recession", "body": "A downturn cools the market — leads slow, project budgets shrink, and valuations sag." },
+    "supplyChainCrisis": { "name": "Supply Chain Crisis", "body": "Disruptions snarl operations — work moves slower and running costs climb." },
+    "newRegulations": { "name": "New Regulations", "body": "Fresh compliance rules raise overhead and squeeze margins across the industry." }
+  },
+  "culture": {
+    "title": "Company culture",
+    "none": "Not set",
+    "note": "Pick a culture for a lasting bonus and a matching weakness.",
+    "innovation": { "name": "Innovation Driven", "bonus": "Higher project value", "weakness": "Higher costs" },
+    "quality": { "name": "Quality First", "bonus": "Fewer defects, better value", "weakness": "Slower intake" },
+    "fastGrowth": { "name": "Fast Growth", "bonus": "More incoming work", "weakness": "Higher burn rate" },
+    "costEfficient": { "name": "Cost Efficient", "bonus": "Lower payroll costs", "weakness": "Lower project value" },
+    "customerObsessed": { "name": "Customer Obsessed", "bonus": "Happier clients", "weakness": "Higher costs" }
+  },
+  "talent": {
+    "available": "Star talent available",
+    "sign": "Sign for {cost}",
+    "roster": "Star employees"
+  },
+  "specialist": {
+    "rockstarSales": { "name": "Rockstar Salesperson", "perk": "More incoming work and higher-value projects." },
+    "industryVeteran": { "name": "Industry Veteran", "perk": "Better-valued work and happier clients." },
+    "exGoogleEngineer": { "name": "Ex-Google Engineer", "perk": "Faster processing and fewer defects." },
+    "operationsGenius": { "name": "Operations Genius", "perk": "Faster processing and leaner costs." }
+  },
+  "manager": {
+    "title": "Operations Manager",
+    "pitch": "Delegate routine ops so you can focus on strategy.",
+    "hire": "Hire manager ({cost})",
+    "salary": "{value}/s salary",
+    "policiesNote": "The manager handles these automatically while you steer the company.",
+    "on": "On",
+    "off": "Off",
+    "policy": {
+      "autoHire": "Auto-hire bottleneck",
+      "autoRebalance": "Auto-rebalance staff",
+      "autoAutomate": "Auto-buy automation"
+    }
+  },
+  "ceoChannel": {
+    "media": "Media",
+    "operations": "Operations",
+    "people": "People",
+    "finance": "Finance",
+    "market": "Market"
+  },
+  "ceoSituation": {
+    "label": "CEO situation",
+    "archiveTape": {
+      "sender": "Mara, communications lead",
+      "subject": "Archive Tape",
+      "body": "“An intern found unreleased client footage. Two people have seen it. A partner plans to publish tonight.”",
+      "context": "4 hours before release · client approval is missing"
+    },
+    "midnightLaunch": {
+      "sender": "Ilya, delivery lead",
+      "subject": "Midnight Launch",
+      "body": "“The release is unstable. Sales already promised it by morning. The team is waiting for your call.”",
+      "context": "6 hours to deadline · queues are already under pressure"
+    },
+    "keyResignation": {
+      "sender": "Nina, people lead",
+      "subject": "The Envelope",
+      "body": "“A key employee has a signed offer from a rival. They will stay if we decide before lunch.”",
+      "context": "Decision due today · the team knows something is happening"
+    },
+    "invoiceDispute": {
+      "sender": "Owen, accounts",
+      "subject": "Red Invoice",
+      "body": "“A major client disputes the final invoice. They will pay today only if we concede.”",
+      "context": "Payment held · relationship and cash are both exposed"
+    },
+    "viralDemand": {
+      "sender": "Leah, growth lead",
+      "subject": "The Spike",
+      "body": "“Mentions tripled overnight. We can take every order, raise the bar, or start a waitlist.”",
+      "context": "Demand window is short · extra work will hit the queues"
+    }
+  },
+  "ceoInbox": {
+    "details": "Details",
+    "decisionBadge": "Decision",
+    "clientComplaint": {
+      "sender": "Client",
+      "subject": "Complaint about a late project",
+      "body": "A client is unhappy with a delayed delivery and is threatening to leave."
+    },
+    "employeeRequest": {
+      "sender": "Employee",
+      "subject": "Request for a raise",
+      "body": "A valued team member is asking for a raise and hints at other offers."
+    },
+    "investorQuestion": {
+      "sender": "Investor",
+      "subject": "Where is the company headed?",
+      "body": "An investor wants to know whether you'll prioritize growth or profit."
+    },
+    "managerRecommendation": {
+      "sender": "Manager",
+      "subject": "Process improvement idea",
+      "body": "A manager proposes a workflow change to relieve the current bottleneck."
+    }
+  },
+  "ceoChoice": {
+    "compensateClient": { "label": "Compensate them", "desc": "Spend cash; satisfaction & reputation recover." },
+    "apologizeClient": { "label": "Apologize", "desc": "Free; a small satisfaction bump." },
+    "ignoreComplaint": { "label": "Ignore it", "desc": "Satisfaction and reputation drop." },
+    "approveRaise": { "label": "Approve raise", "desc": "Costs cash & expenses, but lifts morale & flow." },
+    "offerPerks": { "label": "Offer perks", "desc": "Small cash cost; modest reputation gain." },
+    "denyRequest": { "label": "Deny", "desc": "Save cash; reputation and output dip." },
+    "investGrowth": { "label": "Invest in growth", "desc": "Higher project value, higher expenses." },
+    "focusProfit": { "label": "Focus on profit", "desc": "Lower expenses, slight reputation cost." },
+    "reassureInvestors": { "label": "Reassure them", "desc": "Free; a small reputation gain." },
+    "followManager": { "label": "Approve change", "desc": "Small cost for faster, steadier flow." },
+    "declineManager": { "label": "Not now", "desc": "Keep things as they are." },
+    "containArchiveLeak": { "label": "Contain it", "desc": "Spend cash; protect the client and lower event risk." },
+    "callArchiveClient": { "label": "Call the client", "desc": "Small cost; satisfaction and reputation rise." },
+    "publishArchiveFirst": { "label": "Publish first", "desc": "Reputation jumps; client trust and event safety fall." },
+    "shipTonight": { "label": "Ship tonight", "desc": "Income potential rises; morale falls and event risk rises." },
+    "delayLaunch": { "label": "Delay launch", "desc": "Protect the team; client satisfaction and intake slow." },
+    "cutLaunchScope": { "label": "Cut scope", "desc": "Spend cash; lower value, but reduce delivery risk." },
+    "counterKeyEmployee": { "label": "Counteroffer", "desc": "High cash and payroll cost; morale rises sharply." },
+    "promoteDeputy": { "label": "Promote the deputy", "desc": "Moderate cost; morale and reputation rise." },
+    "acceptResignation": { "label": "Accept resignation", "desc": "Lose 1 employee; morale, flow, and event safety worsen." },
+    "refundInvoice": { "label": "Issue refund", "desc": "Lose cash; recover satisfaction and reputation." },
+    "sendAuditTrail": { "label": "Send the audit trail", "desc": "Small cost; reputation rises and event risk falls." },
+    "collectInvoiceNow": { "label": "Collect now", "desc": "Gain cash; satisfaction and reputation drop." },
+    "acceptViralDemand": { "label": "Accept everything", "desc": "Add 3 projects; reputation and queue pressure rise." },
+    "premiumViralDemand": { "label": "Take premium work", "desc": "Add 1 valuable project; income and reputation rise." },
+    "waitlistViralDemand": { "label": "Open a waitlist", "desc": "Slow intake; protect morale and client satisfaction." }
+  }
+}

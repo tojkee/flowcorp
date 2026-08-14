@@ -1,0 +1,42 @@
+{
+  "name": "flowcorp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "manifest": "node scripts/build_manifest.mjs",
+    "validate:locales": "node scripts/check_locale_parity.mjs",
+    "validate:legacy": "node scripts/validate_founder_legacy_phase2.mjs",
+    "validate:guidance": "node scripts/validate_guidance.mjs",
+    "validate:gameplay": "node scripts/validate_gameplay.mjs",
+    "validate:clients": "node scripts/validate_clients.mjs",
+    "validate:ceo": "node scripts/validate_ceo_inbox.mjs",
+    "validate:events": "node scripts/validate_events.mjs",
+    "validate:managers": "node scripts/validate_managers.mjs",
+    "validate:culture": "node scripts/validate_culture_talent.mjs",
+    "validate:morale": "node scripts/validate_morale_competitors.mjs",
+    "validate:market": "node scripts/validate_market.mjs",
+    "validate:ipo": "node scripts/validate_ipo.mjs",
+    "validate:gov": "node scripts/validate_government.mjs",
+    "validate:merger": "node scripts/validate_merger.mjs",
+    "validate:career": "node scripts/validate_founder_career.mjs",
+    "validate:tiers": "node scripts/validate_career_tiers.mjs",
+    "validate:automation": "node scripts/validate_automation.mjs",
+    "validate:vc": "node scripts/validate_venture.mjs",
+    "validate:reports": "node scripts/validate_company_reports.mjs",
+    "validate:return-hooks": "node scripts/validate_return_hooks.mjs",
+    "validate:money-flow": "node scripts/validate_money_flow.mjs",
+    "validate:save": "node scripts/validate_persistence.mjs",
+    "validate": "npm run validate:locales && npm run validate:legacy && npm run validate:guidance && npm run validate:gameplay && npm run validate:clients && npm run validate:ceo && npm run validate:events && npm run validate:managers && npm run validate:culture && npm run validate:morale && npm run validate:market && npm run validate:ipo && npm run validate:gov && npm run validate:merger && npm run validate:career && npm run validate:tiers && npm run validate:automation && npm run validate:vc && npm run validate:reports && npm run validate:return-hooks && npm run validate:money-flow && npm run validate:save"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "5.0.4",
+    "vite": "6.4.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {}
+}
