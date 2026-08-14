@@ -237,8 +237,16 @@ export const NOTIFICATION_RULES = [
     cooldownMs: FIRE_ONCE_MS,
     evaluate: (sim) => {
       const event = sim.lastDynamicEvent;
-      if (event && event.severity === "bad") return { key: `dyn:${event.id}`, vars: { eventType: event.type } };
-      return null;
+      if (!event || event.severity !== "bad") return null;
+      // Some events happened to a specific person (an employee quitting) — pass
+      // them along so the inbox can name who it was.
+      const person = event.person;
+      return {
+        key: `dyn:${event.id}`,
+        vars: person
+          ? { eventType: event.type, employee: person.employee, departmentId: person.departmentId }
+          : { eventType: event.type },
+      };
     },
   },
   // A rare special (star) employee is available to sign (contract opportunity).

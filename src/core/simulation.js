@@ -4,6 +4,7 @@ import { CLIENTS, PROJECTS } from "../data/clients.js";
 import { CULTURE_BY_ID } from "../data/culture.js";
 import { SPECIALISTS, SPECIALIST_BY_ID } from "../data/specialists.js";
 import { COMPETITORS, COMPETITOR_EVENTS } from "../data/competitors.js";
+import { rollEmployeeName } from "../data/employeeNames.js";
 import { CEO_CHOICE_BY_ID, CEO_SITUATIONS, isCeoSituationEligible } from "../data/ceoSituations.js";
 import { buildCompanyReport, captureCompanyReportSnapshot, COMPANY_REPORT_INTERVAL_SECONDS } from "./companyReport.js";
 import {
@@ -274,6 +275,10 @@ export function createSimulation(companyType, founderProfile = null) {
     achievements: [],
     lastAchievement: null,
     eventLog: ["Spreadsheet is installed."],
+    // The last employee hired / moved between departments. Presentation only:
+    // it lets action feedback name the person instead of counting headcount.
+    lastHire: null,
+    lastTransfer: null,
     // Company evolution (long-term lifecycle layer). Defaults keep the economy
     // neutral until the player commits to a destiny path.
     reputation: 6 + legacyEffects.startingReputation + prestigeEffects.startingReputationBonus,
@@ -358,11 +363,12 @@ export function createSimulation(companyType, founderProfile = null) {
   };
 }
 
-// An employee is a persistent visual entity. characterType is assigned once and
-// kept for the employee's lifetime, including when moved between departments.
+// An employee is a persistent visual entity. characterType and the name indices
+// are assigned once and kept for the employee's lifetime, including when moved
+// between departments. Both are cosmetic and never feed the simulation.
 function makeEmployee(id, departmentId) {
   const characterType = EMPLOYEE_CHARACTER_TYPES[Math.floor(Math.random() * EMPLOYEE_CHARACTER_TYPES.length)];
-  return { id, departmentId, characterType };
+  return { id, departmentId, characterType, ...rollEmployeeName() };
 }
 
 export function tickSimulation(state, dt) {
@@ -970,8 +976,12 @@ export const DYNAMIC_EVENTS = [
     apply: (state) => {
       const donor = [...state.departments].filter((d) => d.employees > 1).sort((a, b) => getPressure(state, a) - getPressure(state, b))[0];
       if (donor) {
+        const leaver = donor.staff[donor.staff.length - 1] ?? null;
         donor.employees -= 1;
         donor.staff = donor.staff.slice(0, -1);
+        // Who left is carried to the notification so the player reads a name,
+        // not "a team member". Consumed by updateDynamicEvents below.
+        if (leaver) state.pendingEventPerson = { employee: { ...leaver }, departmentId: donor.id };
       } else {
         // No department can spare anyone — morale dips instead.
         state.clientSatisfaction = clamp(0, 100, (state.clientSatisfaction ?? 100) - 5);
@@ -1110,7 +1120,10 @@ function updateDynamicEvents(state, dt) {
   }
 
   chosen.apply(state);
-  state.lastDynamicEvent = { id: `${chosen.type}_${Math.round(state.elapsed * 1000)}`, type: chosen.type, severity: chosen.severity, at: state.elapsed };
+  // An event may name the person it happened to (see employeeQuit).
+  const person = state.pendingEventPerson ?? null;
+  state.pendingEventPerson = null;
+  state.lastDynamicEvent = { id: `${chosen.type}_${Math.round(state.elapsed * 1000)}`, type: chosen.type, severity: chosen.severity, at: state.elapsed, person };
   state.dynamicEventCooldown = DYNAMIC_EVENT_COOLDOWN_SECONDS;
   state.eventLog = [`Event: ${chosen.type}.`, ...state.eventLog].slice(0, 4);
 }
@@ -1435,10 +1448,12 @@ export function hireForDepartment(state, departmentId) {
     return next;
   }
 
+  const hired = makeEmployee(`emp_${next.nextEmployeeId}`, department.id);
   department.employees += 1;
-  department.staff = [...department.staff, makeEmployee(`emp_${next.nextEmployeeId}`, department.id)];
+  department.staff = [...department.staff, hired];
   next.nextEmployeeId += 1;
   next.cash -= cost;
+  next.lastHire = { ...hired };
   next.eventLog = [`Hired 1 employee into ${department.name}.`, ...next.eventLog].slice(0, 4);
   return next;
 }
@@ -1505,6 +1520,7 @@ export function rebalanceEmployees(state) {
   donor.staff = donor.staff.slice(0, -1);
   if (moved) {
     bottleneck.staff = [...bottleneck.staff, { ...moved, departmentId: bottleneck.id }];
+    next.lastTransfer = { ...moved, departmentId: bottleneck.id, fromDepartmentId: donor.id };
   }
   next.eventLog = [`Moved capacity from ${donor.name} to ${bottleneck.name}.`, ...next.eventLog].slice(0, 4);
   return next;
@@ -3042,6 +3058,8 @@ function cloneState(state) {
     achievements: [...(state.achievements ?? [])],
     lastAchievement: state.lastAchievement ? { ...state.lastAchievement } : null,
     eventLog: [...state.eventLog],
+    lastHire: state.lastHire ? { ...state.lastHire } : null,
+    lastTransfer: state.lastTransfer ? { ...state.lastTransfer } : null,
     reachedStages: [...(state.reachedStages ?? ["startup"])],
     activeOffer: state.activeOffer ? { ...state.activeOffer, reasons: [...(state.activeOffer.reasons ?? [])] } : null,
     outcome: state.outcome ? { ...state.outcome } : null,
@@ -3056,7 +3074,9 @@ function cloneState(state) {
       : null,
     companyReportTimer: state.companyReportTimer ?? COMPANY_REPORT_INTERVAL_SECONDS,
     companyReportSequence: state.companyReportSequence ?? 0,
-    lastDynamicEvent: state.lastDynamicEvent ? { ...state.lastDynamicEvent } : null,
+    lastDynamicEvent: state.lastDynamicEvent
+      ? { ...state.lastDynamicEvent, person: state.lastDynamicEvent.person ? { ...state.lastDynamicEvent.person, employee: { ...state.lastDynamicEvent.person.employee } } : null }
+      : null,
     manager: { ...(state.manager ?? { hired: false, autoHire: true, autoRebalance: true, autoAutomate: true, actionTimer: 0 }) },
     culture: state.culture ?? null,
     specialHires: [...(state.specialHires ?? [])],

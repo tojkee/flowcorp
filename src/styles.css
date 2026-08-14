@@ -2788,6 +2788,16 @@ h1 {
   font-size: 11px;
 }
 
+/* The team roster is flavor, not a stat: dimmer, clipped to one line. */
+.department-chip .dept-team {
+  overflow: hidden;
+  margin-bottom: 3px;
+  color: #8ea6c0;
+  font-size: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .department-chip.is-hot {
   border-color: #ff654f;
   box-shadow:

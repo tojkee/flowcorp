@@ -38,6 +38,7 @@ src/
     culture.js               Company cultures (id-based: effects + signature event)
     specialists.js           Special (rare star) employees (id-based: effects + cost)
     competitors.js           Competitor roster + rival event types
+    employeeNames.js         Localized first-name/surname pools + name resolution for staff (cosmetic only)
     industryTrends.js        Industry-trend climate roster (AI boom, recession, …): effects + drift + valuation
     ceoSituations.js         Data-driven CEO Inbox situations, choices, eligibility, and effect declarations
   rendering/
@@ -70,6 +71,7 @@ asset_manifest.json          Catalog of every asset (path, category, dimensions)
 scripts/
   build_manifest.mjs         Read-only scanner that rebuilds asset_manifest.json (never writes images)
   check_locale_parity.mjs    Verifies en/ru locale key parity
+  validate_employee_names.mjs  Employee-name pool parity + assignment/transfer/quit-notification suite
   validate_gameplay.mjs      Gameplay requirements checklist (prestige, exits, merger/IPO/gov, inheritance)
   validate_clients.mjs       Client system + recovery contract regression suite
   validate_ceo_inbox.mjs     CEO Inbox and narrative situation-card regression suite

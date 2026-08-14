@@ -25,6 +25,9 @@ export function captureFeedbackSnapshot(state, metrics) {
     ),
     bottleneckId: metrics.bottleneck?.id ?? null,
     bottleneckOverloaded: Boolean(metrics.bottleneck?.bottleneck?.isOverloaded),
+    // Who was just hired / moved, so the toast can name them.
+    lastHire: state.lastHire ? { ...state.lastHire } : null,
+    lastTransfer: state.lastTransfer ? { ...state.lastTransfer } : null,
   };
 }
 
@@ -35,10 +38,17 @@ export function getActionFeedback(action, before, after) {
     const oldCount = before.departments[action.departmentId]?.employees ?? 0;
     const newCount = after.departments[action.departmentId]?.employees ?? 0;
     if (newCount <= oldCount) return null;
+    const isNew = after.lastHire && after.lastHire.id !== before.lastHire?.id;
+    const hired = isNew && after.lastHire.departmentId === action.departmentId ? after.lastHire : null;
     return {
       id: "hire",
       tone: "good",
-      vars: { departmentId: action.departmentId, value: Math.round(((newCount - oldCount) / Math.max(1, oldCount)) * 100) },
+      messageKey: hired ? "feedback.hireNamed" : undefined,
+      vars: {
+        departmentId: action.departmentId,
+        value: Math.round(((newCount - oldCount) / Math.max(1, oldCount)) * 100),
+        ...(hired ? { employee: hired } : {}),
+      },
     };
   }
 
@@ -47,10 +57,20 @@ export function getActionFeedback(action, before, after) {
     const oldCount = before.departments[departmentId]?.employees ?? 0;
     const newCount = after.departments[departmentId]?.employees ?? 0;
     if (!departmentId || newCount <= oldCount) return null;
+    const transferKey = (entry) => (entry ? `${entry.id}:${entry.departmentId}:${entry.fromDepartmentId}` : null);
+    const transfer =
+      after.lastTransfer?.departmentId === departmentId && transferKey(after.lastTransfer) !== transferKey(before.lastTransfer)
+        ? after.lastTransfer
+        : null;
     return {
       id: "rebalance",
       tone: "good",
-      vars: { departmentId, value: Math.round(((newCount - oldCount) / Math.max(1, oldCount)) * 100) },
+      messageKey: transfer ? "feedback.rebalanceNamed" : undefined,
+      vars: {
+        departmentId,
+        value: Math.round(((newCount - oldCount) / Math.max(1, oldCount)) * 100),
+        ...(transfer ? { employee: transfer } : {}),
+      },
     };
   }
 

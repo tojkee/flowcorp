@@ -287,7 +287,9 @@
   "feedback": {
     "goalComplete": "✅ Goal · +{amount} · +{reputation} rep",
     "hire": "✅ {department} · +{value}% capacity",
+    "hireNamed": "✅ {name} joined {department} · +{value}% capacity",
     "rebalance": "✅ Moved to {department} · +{value}%",
+    "rebalanceNamed": "✅ {name} moved to {department} · +{value}%",
     "automation": "✅ {tool} · +{value}% speed · +{slots} slots",
     "projectPaid": "💰 Project paid · +{amount}",
     "bottleneckSolved": "✅ {department} unblocked",
@@ -520,7 +522,7 @@
     "industryTrend": { "title": "{trend}", "body": "{detail}" }
   },
   "dynamicEvent": {
-    "employeeQuit": { "name": "Employee quit", "body": "A team member left — a department lost capacity. Consider re-hiring." },
+    "employeeQuit": { "name": "Employee quit", "body": "A team member left — a department lost capacity. Consider re-hiring.", "bodyNamed": "{name} left the company — {department} lost capacity. Consider re-hiring." },
     "majorClientComplaint": { "name": "Major client complaint", "body": "A key client is furious about service. Client satisfaction dropped." },
     "serverOutage": { "name": "Server outage", "body": "An outage cost money and rattled clients." },
     "viralSuccess": { "name": "Viral success", "body": "Your work went viral — new leads and reputation are surging." },

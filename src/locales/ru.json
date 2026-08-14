@@ -287,7 +287,9 @@
   "feedback": {
     "goalComplete": "✅ Цель · +{amount} · +{reputation} реп.",
     "hire": "✅ {department} · +{value}% мощности",
+    "hireNamed": "✅ {name} — новый сотрудник отдела «{department}» · +{value}% мощности",
     "rebalance": "✅ В отдел {department} · +{value}%",
+    "rebalanceNamed": "✅ {name} → отдел «{department}» · +{value}%",
     "automation": "✅ {tool} · +{value}% скорости · +{slots} слотов",
     "projectPaid": "💰 Проект оплачен · +{amount}",
     "bottleneckSolved": "✅ {department} разгружен",
@@ -520,7 +522,7 @@
     "industryTrend": { "title": "{trend}", "body": "{detail}" }
   },
   "dynamicEvent": {
-    "employeeQuit": { "name": "Сотрудник уволился", "body": "Сотрудник ушёл — отдел потерял мощность. Возможно, стоит нанять снова." },
+    "employeeQuit": { "name": "Сотрудник уволился", "body": "Сотрудник ушёл — отдел потерял мощность. Возможно, стоит нанять снова.", "bodyNamed": "{name} уходит из компании — отдел «{department}» потерял мощность. Возможно, стоит нанять снова." },
     "majorClientComplaint": { "name": "Крупная жалоба клиента", "body": "Ключевой клиент в ярости из-за сервиса. Удовлетворённость упала." },
     "serverOutage": { "name": "Сбой сервера", "body": "Сбой стоил денег и встревожил клиентов." },
     "viralSuccess": { "name": "Вирусный успех", "body": "Ваша работа стала вирусной — лиды и репутация растут." },

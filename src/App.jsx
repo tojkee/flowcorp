@@ -43,6 +43,7 @@ import {
 import { FOUNDER_SKILLS, FOUNDER_TRAITS, MAX_SKILL_LEVEL } from "./data/founderTraits.js";
 import { isShowcase, showcaseUnlockAll, showcaseFounderProfile, SHOWCASE_BONUS_CASH, SHOWCASE_TIME_SCALE } from "./showcase.js";
 import { ACHIEVEMENT_BY_ID } from "./data/achievements.js";
+import { getEmployeeFirstName, getEmployeeName } from "./data/employeeNames.js";
 import { OfficeCanvas } from "./rendering/OfficeCanvas.jsx";
 import { useI18n } from "./i18n/index.jsx";
 import { getGuidanceFlags, GUIDANCE_MODES, useGuidanceMode } from "./guidance/guidanceMode.jsx";
@@ -143,7 +144,7 @@ function collectNotifications(current, sim, offlineSummary = null, now = Date.no
 }
 
 export function App() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [boot] = useState(bootFromSave);
   const [selectedCompany, setSelectedCompany] = useState(boot.company);
   const [simulation, setSimulation] = useState(boot.sim);
@@ -161,12 +162,14 @@ export function App() {
   const notifRef = useRef(notifications);
   const permRef = useRef(permission);
   const tRef = useRef(t);
+  const languageRef = useRef(language);
   const backgroundRef = useRef(background);
   const lastHiddenAtRef = useRef(null);
   simRef.current = simulation;
   notifRef.current = notifications;
   permRef.current = permission;
   tRef.current = t;
+  languageRef.current = language;
   backgroundRef.current = background;
 
   const hasGame = Boolean(simulation);
@@ -198,7 +201,7 @@ export function App() {
     setNotifications(next);
 
     if (newItems.length && permRef.current === "granted" && typeof document !== "undefined" && document.hidden) {
-      fireBrowserNotifications(newItems, tRef.current);
+      fireBrowserNotifications(newItems, tRef.current, languageRef.current);
     }
   }, []);
 
@@ -528,11 +531,12 @@ export function App() {
   );
 }
 
-function fireBrowserNotifications(items, t) {
+function fireBrowserNotifications(items, t, language) {
   for (const item of items) {
     if (!isSystemSeverity(item.severity)) continue;
     try {
-      new Notification(t(item.titleKey, notificationVars(t, item)), { body: t(item.bodyKey, notificationVars(t, item)), tag: item.key });
+      const vars = notificationVars(t, item, language);
+      new Notification(t(item.titleKey, vars), { body: t(item.bodyKey, vars), tag: item.key });
     } catch {
       // Notification construction can throw on some platforms; ignore.
     }
@@ -994,9 +998,10 @@ function CelebrationOverlay({ achievementId, onDone }) {
 }
 
 function ActionFeedbackToast({ feedback }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   if (!feedback) return null;
   const vars = { ...feedback.vars };
+  if (vars.employee) vars.name = getEmployeeName(vars.employee, language);
   if (vars.departmentId) vars.department = t(`department.${vars.departmentId}`);
   if (vars.toolId) vars.tool = t(`automationTools.${vars.toolId}.name`);
   if (typeof vars.amount === "number") vars.amount = formatMoney(vars.amount);
@@ -2109,13 +2114,22 @@ function describeOfficeEffects(t, effects) {
   return active.length ? active.join(" | ") : t("effects.manual");
 }
 
+// Up to this many names are listed on a department chip; the rest are summed up
+// as "+N" so a large department stays one readable line.
+const TEAM_PREVIEW = 3;
+
 function DepartmentPanel({ departments, bottleneckId, hireCosts, cash, onHire }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   return (
     <section className="department-panel">
       {departments.map((department) => {
         const cost = hireCosts[department.id] ?? 0;
         const name = t(`department.${department.id}`);
+        const staff = department.staff ?? [];
+        const shown = staff.slice(0, TEAM_PREVIEW).map((employee) => getEmployeeFirstName(employee, language));
+        const rest = staff.length - shown.length;
+        const team = shown.length ? `${shown.join(", ")}${rest > 0 ? ` +${rest}` : ""}` : null;
+        const roster = staff.map((employee) => getEmployeeName(employee, language)).join(", ");
         return (
           <article
             className={`department-chip ${department.bottleneck?.isOverloaded ? "is-hot" : ""} ${department.id === bottleneckId ? "is-primary" : ""}`}
@@ -2123,6 +2137,11 @@ function DepartmentPanel({ departments, bottleneckId, hireCosts, cash, onHire })
             style={{ "--dept": department.color }}
           >
             <b>{name}</b>
+            {team ? (
+              <span className="dept-team" title={roster}>
+                👥 {team}
+              </span>
+            ) : null}
             <span>{t("stat.queue")} {department.queue.length}</span>
             <span>{t("stat.employees")} {department.employees}</span>
             <span>{t("stat.util")} {formatPercent(department.bottleneck?.utilization ?? 0)}</span>
@@ -2373,7 +2392,7 @@ function PhilosophyPanel({ onClose }) {
 // Inline notification feed rendered on the Inbox tab (formerly a modal): the
 // browser-notification permission control plus the localized event list.
 function InboxList({ notifications, permission, onEnable }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const items = notifications.items;
 
   return (
@@ -2395,10 +2414,10 @@ function InboxList({ notifications, permission, onEnable }) {
           {items.map((item) => (
             <li key={item.id} className={`inbox-item sev-${item.severity}`}>
               <div className="inbox-item-head">
-                <strong>{t(item.titleKey, notificationVars(t, item))}</strong>
+                <strong>{t(item.titleKey, notificationVars(t, item, language))}</strong>
                 <small>{formatAgo(t, item.time)}</small>
               </div>
-              <p>{t(item.bodyKey, notificationVars(t, item))}</p>
+              <p>{t(item.bodyKey, notificationVars(t, item, language))}</p>
             </li>
           ))}
         </ul>
@@ -2656,8 +2675,9 @@ function formatTimelineEvent(t, event) {
 
 // Translate stored notification var ids (departmentId, toolId, stageId, buyerId)
 // into display strings so the inbox re-localizes when the language changes.
-function notificationVars(t, item) {
+function notificationVars(t, item, language = "en") {
   const vars = { ...item.vars };
+  if (item.vars.employee) vars.name = getEmployeeName(item.vars.employee, language);
   if (item.vars.departmentId) vars.department = t(`department.${item.vars.departmentId}`);
   if (item.vars.toolId) vars.tool = t(`automationTools.${item.vars.toolId}.name`);
   if (item.vars.stageId) vars.stage = t(`stage.${item.vars.stageId}.name`);
@@ -2665,7 +2685,10 @@ function notificationVars(t, item) {
   if (item.vars.amount !== undefined) vars.amount = formatMoney(item.vars.amount);
   if (item.vars.eventType) {
     vars.event = t(`dynamicEvent.${item.vars.eventType}.name`);
-    vars.detail = t(`dynamicEvent.${item.vars.eventType}.body`);
+    // An event that names a person reads better in its own phrasing; saves made
+    // before names existed fall back to the impersonal wording.
+    const bodyKey = `dynamicEvent.${item.vars.eventType}.${vars.name ? "bodyNamed" : "body"}`;
+    vars.detail = t(bodyKey, vars);
   }
   if (item.vars.specialistId) vars.specialist = t(`specialist.${item.vars.specialistId}.name`);
   if (item.vars.clientId) vars.client = t(`client.${item.vars.clientId}`);

@@ -30,7 +30,8 @@
     "validate:return-hooks": "node scripts/validate_return_hooks.mjs",
     "validate:money-flow": "node scripts/validate_money_flow.mjs",
     "validate:save": "node scripts/validate_persistence.mjs",
-    "validate": "npm run validate:locales && npm run validate:legacy && npm run validate:guidance && npm run validate:gameplay && npm run validate:clients && npm run validate:ceo && npm run validate:events && npm run validate:managers && npm run validate:culture && npm run validate:morale && npm run validate:market && npm run validate:ipo && npm run validate:gov && npm run validate:merger && npm run validate:career && npm run validate:tiers && npm run validate:automation && npm run validate:vc && npm run validate:reports && npm run validate:return-hooks && npm run validate:money-flow && npm run validate:save"
+    "validate:names": "node scripts/validate_employee_names.mjs",
+    "validate": "npm run validate:locales && npm run validate:names && npm run validate:legacy && npm run validate:guidance && npm run validate:gameplay && npm run validate:clients && npm run validate:ceo && npm run validate:events && npm run validate:managers && npm run validate:culture && npm run validate:morale && npm run validate:market && npm run validate:ipo && npm run validate:gov && npm run validate:merger && npm run validate:career && npm run validate:tiers && npm run validate:automation && npm run validate:vc && npm run validate:reports && npm run validate:return-hooks && npm run validate:money-flow && npm run validate:save"
   },
   "dependencies": {
     "@vitejs/plugin-react": "5.0.4",
