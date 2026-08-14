@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { readKey, writeKey } from "../core/storage.js";
 
 // Guidance Modes let the game support both casual and advanced playstyles without
 // touching the simulation — they only control how much proactive coaching UI is
@@ -25,12 +26,8 @@ const STORAGE_KEY = "flowcorp.guidance.v1";
 const GuidanceModeContext = createContext(null);
 
 function readStoredMode() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && MODE_IDS.includes(stored)) return stored;
-  } catch {
-    // localStorage may be unavailable (private mode / quota); fall back to default.
-  }
+  const stored = readKey(STORAGE_KEY);
+  if (stored && MODE_IDS.includes(stored)) return stored;
   return DEFAULT_MODE;
 }
 
@@ -57,11 +54,7 @@ export function GuidanceModeProvider({ children }) {
   const [mode, setMode] = useState(readStoredMode);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, mode);
-    } catch {
-      // Ignore persistence failures.
-    }
+    writeKey(STORAGE_KEY, mode);
   }, [mode]);
 
   const value = useMemo(() => ({ mode, setMode, modes: GUIDANCE_MODES }), [mode]);

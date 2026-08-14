@@ -8,6 +8,8 @@
 // active. A single live company is just a roster of one — identical in behaviour
 // to the original single-company save, so existing v1 saves migrate cleanly.
 
+import { readKey, removeKey, writeKey } from "./storage.js";
+
 const SAVE_KEY = "flowcorp.save.v1";
 const SAVE_VERSION = 2;
 
@@ -23,7 +25,7 @@ function normalizeNotifications(value) {
 
 // roster = { activeId, companies: [{ id, sim, lastActiveAt }], notifications }
 export function saveRoster(roster) {
-  if (!roster || !Array.isArray(roster.companies) || roster.companies.length === 0) return;
+  if (!roster || !Array.isArray(roster.companies) || roster.companies.length === 0) return null;
   try {
     const now = Date.now();
     const companies = roster.companies
@@ -35,7 +37,7 @@ export function saveRoster(roster) {
         // timestamp so their catch-up measures the real time they were paused.
         lastActiveAt: record.id === roster.activeId ? now : record.lastActiveAt ?? now,
       }));
-    if (!companies.length) return;
+    if (!companies.length) return null;
     const activeId = companies.some((c) => c.id === roster.activeId) ? roster.activeId : companies[0].id;
     const payload = {
       version: SAVE_VERSION,
@@ -43,15 +45,20 @@ export function saveRoster(roster) {
       companies,
       notifications: normalizeNotifications(roster.notifications),
     };
-    localStorage.setItem(SAVE_KEY, JSON.stringify(payload));
+    const raw = JSON.stringify(payload);
+    writeKey(SAVE_KEY, raw);
+    // Returned so the caller can mirror the exact same bytes to a platform's
+    // cloud save without re-serializing (see platform/yandex.js).
+    return raw;
   } catch {
     // Storage may be unavailable (private mode, quota). Saving is best-effort.
   }
+  return null;
 }
 
 export function loadRoster() {
   try {
-    const raw = localStorage.getItem(SAVE_KEY);
+    const raw = readKey(SAVE_KEY);
     if (!raw) return null;
     return normalizeSave(JSON.parse(raw));
   } catch {
@@ -93,11 +100,28 @@ export function normalizeSave(payload) {
 }
 
 export function clearGame() {
+  removeKey(SAVE_KEY);
+}
+
+// Adopt a save that came from somewhere else (a platform cloud save) when it is
+// strictly newer than the local one, so progress follows the player across
+// devices. Returns true when the local save was replaced.
+export function adoptRawSave(raw) {
+  if (typeof raw !== "string" || !raw) return false;
+  let incoming = null;
   try {
-    localStorage.removeItem(SAVE_KEY);
+    incoming = normalizeSave(JSON.parse(raw));
   } catch {
-    // Ignore.
+    return false;
   }
+  if (!incoming) return false;
+  if (newestActivity(incoming) <= newestActivity(loadRoster())) return false;
+  return writeKey(SAVE_KEY, raw);
+}
+
+function newestActivity(roster) {
+  if (!roster) return -Infinity;
+  return roster.companies.reduce((newest, record) => Math.max(newest, record.lastActiveAt ?? 0), -Infinity);
 }
 
 export { EMPTY_NOTIFICATIONS };

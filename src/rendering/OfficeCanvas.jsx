@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { getMetrics } from "../core/simulation.js";
 import { assetRegistry, getRoomStem, getBackgroundSprite } from "../assets/assetRegistry.js";
 
 const WIDTH = 390;
@@ -29,7 +28,11 @@ const DEPARTMENT_LIVELINESS = {
   development: 0.3,
 };
 
-export function OfficeCanvas({ state, t, language }) {
+// `metrics` is passed in rather than derived here: the parent already memoizes
+// getMetrics(state), and this component redraws on every animation frame, so
+// recomputing it would rebuild the whole metrics object ~60 times a second for
+// nothing.
+export function OfficeCanvas({ state, metrics, t, language }) {
   const canvasRef = useRef(null);
   const sprites = useSpriteAssets(state.companyType.id);
 
@@ -40,9 +43,9 @@ export function OfficeCanvas({ state, t, language }) {
     canvas.width = WIDTH * pixelRatio;
     canvas.height = HEIGHT * pixelRatio;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    drawOffice(context, state, sprites, t);
+    drawOffice(context, state, metrics, sprites, t);
     // language is a dependency so canvas text re-renders when the player switches it.
-  }, [state, sprites, t, language]);
+  }, [state, metrics, sprites, t, language]);
 
   return (
     <canvas
@@ -106,8 +109,7 @@ function loadImage(url) {
   });
 }
 
-function drawOffice(ctx, state, sprites, t) {
-  const metrics = getMetrics(state);
+function drawOffice(ctx, state, metrics, sprites, t) {
   const effects = metrics.automationEffects;
   const time = Date.now();
 

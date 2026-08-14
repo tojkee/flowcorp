@@ -355,9 +355,6 @@ export function getGoalView(state) {
 
 // --- First-run mini-chapter -----------------------------------------------
 
-function hasWorkInSystem(state) {
-  return state.tasks.length > 0 || state.departments.some((department) => department.queue.length || department.active.length);
-}
 
 function initialHireDone(state) {
   return totalEmployees(state) >= startingEmployeeTotal(state) + 1 || (state.completedGoals ?? []).includes("firstHire");
@@ -371,7 +368,10 @@ export function getFirstRunChapter(state, metrics) {
   const hireCost = bottleneck ? metrics.hireCosts[bottleneck.id] ?? 0 : 0;
   const hired = initialHireDone(state);
 
-  if (!hired && !hasWorkInSystem(state) && state.completedTasks === 0) {
+  // A new company now opens with work already flowing (see seedInitialPipeline),
+  // so this opening beat is gated on "nothing has been PAID yet" rather than on
+  // an empty pipeline — the player watches that first project reach Payment.
+  if (!hired && state.completedTasks === 0) {
     return {
       id: "watchFirstWork",
       step: 1,

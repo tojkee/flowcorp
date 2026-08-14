@@ -26,7 +26,8 @@ src/
     guidance.js              Player guidance: CEO Advisor, income breakdown, goals, safety net (pure)
     actionFeedback.js         Pure before/after action and progress feedback derivation
     companyReport.js          Pure recurring/offline report snapshots, deltas, improvement and risk ranking
-    persistence.js           Save/load the company roster in localStorage (v2 roster schema + v1 migration)
+    persistence.js           Save/load the company roster via core/storage.js (v2 roster schema + v1 migration + cloud-save adoption)
+    storage.js               Pluggable key/value backend (localStorage by default, platform storage on Yandex Games)
     offline.js               Offline catch-up: replays elapsed time + "while you were away" summary
     notifications.js         Data-driven notification rules + cooldown/dedupe evaluator
   data/
@@ -47,21 +48,25 @@ src/
     index.jsx                LanguageProvider, useI18n hook, t() translator, persistence
   guidance/
     guidanceMode.jsx         GuidanceModeProvider/useGuidanceMode + getGuidanceFlags (Full/Minimal/Hardcore), persisted
+  audio/
+    sfx.js                   Runtime-synthesized sound cues (Web Audio, no audio files), mute toggle, ad/background silencing
+  platform/
+    yandex.js                Yandex Games SDK: init, Game Ready, gameplay markup, platform storage + cloud save, ads (no-op off-platform)
   locales/
     en.json                  English strings (default + fallback)
     ru.json                  Russian strings
   assets/
     assetRegistry.js         Centralized sprite registry (paths resolved via import.meta.glob)
-    background/              Per-company office backgrounds (it-company, marketing-agency, e-commerce, manufacturing, logistics); new tiered companies reuse one via BACKGROUND_ALIASES until dedicated art ships
+    background/              Per-company office backgrounds (it-company, marketing-agency, e-commerce, manufacturing, logistics); new tiered companies reuse one via BACKGROUND_ALIASES until dedicated art ships. Shipped as .jpg (alpha-free and 4x lighter); the .png masters stay alongside as the source of truth
     employees/
       black_employee/        idle, idle_blink, sitting, walk_up/down/left/right
       red_employee/          same states, files prefixed employee_*
       woman_employee/        same states
     departments/             accounting/analysis/development/qa/sale/support _room.png
     tasks/                   lead, requirement, development_task, bug, support_ticket, invoice, payment tokens
-    office/                  desk, computer, chair, meeting_table, server_rack, office_plant, water_cooler
-    ui/                      HUD/action icons
-    automation/              Technology icons
+    office/                  desk, computer, chair, meeting_table, server_rack, office_plant, water_cooler — only water_cooler is imported (the rooms already contain their furniture); add an import to draw another
+    ui/                      HUD/action icons — NOT bundled (the interface renders emoji); kept for a future icon set
+    automation/              Technology icons — NOT bundled, same reason
     palette/                 FlowCorp palette swatch PNG
     reference/               Selected visual direction reference
 docs/

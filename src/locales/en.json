@@ -319,6 +319,9 @@
   "settings": {
     "title": "Settings",
     "language": "Language",
+    "sound": "Sound",
+    "soundOn": "🔊 Sound on",
+    "soundOff": "🔇 Sound off",
     "gameplay": "Gameplay",
     "about": "About",
     "close": "Close"
@@ -450,6 +453,7 @@
     "bottleneck": "Bottleneck",
     "allClear": "Everything ran smoothly while you were gone.",
     "capped": "Offline progress is capped at {hours} h.",
+    "double": "📺 Watch an ad · double to {amount}",
     "continue": "Continue"
   },
   "report": {

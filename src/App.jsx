@@ -23,6 +23,7 @@ import {
   dismissCompanyReport,
   dismissLegacyEvent,
   getMetrics,
+  grantBonusCash,
   giveRaise,
   graduateCompany,
   hireForDepartment,
@@ -48,53 +49,48 @@ import { OfficeCanvas } from "./rendering/OfficeCanvas.jsx";
 import { useI18n } from "./i18n/index.jsx";
 import { getGuidanceFlags, GUIDANCE_MODES, useGuidanceMode } from "./guidance/guidanceMode.jsx";
 import { clearGame, EMPTY_NOTIFICATIONS, loadRoster, saveRoster } from "./core/persistence.js";
+import { readKey, writeKey } from "./core/storage.js";
+import { canShowRewarded, notifyGameplay, saveCloudSave, showInterstitial, showRewardedVideo } from "./platform/yandex.js";
+import { isMuted, playSfx, primeAudio, setAudioSuspended, setMuted } from "./audio/sfx.js";
 import { MAX_OFFLINE_SECONDS, simulateOffline } from "./core/offline.js";
 import { evaluateNotifications, INBOX_LIMIT, isSystemSeverity } from "./core/notifications.js";
 import { getLegacyBonusEffects, getPrestigeLevel, prepareFounderProfile } from "./core/founderLegacy.js";
 import { captureFeedbackSnapshot, getActionFeedback, getProgressFeedback } from "./core/actionFeedback.js";
 
 const AUTOSAVE_MS = 5000;
+// Simulation/render cadence. 30 Hz is indistinguishable from 60 for this game's
+// animation and halves the per-frame React + canvas work (see the frame loop).
+// The threshold sits BELOW 1000/30 on purpose: display frames arrive quantized
+// (16.67 ms at 60 Hz), so an exact 33.33 ms gate is missed by a hair every other
+// frame and the loop degrades to every third frame — 20 Hz, not 30. 28 ms clears
+// two 60 Hz frames, four 120 Hz frames and one 30 Hz frame, landing on a steady
+// 30 Hz at every common refresh rate.
+const MIN_TICK_MS = 28;
 
 function getNotificationPermission() {
   if (typeof Notification === "undefined") return "unsupported";
   return Notification.permission;
 }
 
-// First-run onboarding is shown once per player and remembered in localStorage
-// (wrapped in try/catch so private mode / quota failures degrade gracefully).
+// First-run onboarding is shown once per player and remembered in the platform
+// storage adapter (see core/storage.js).
 const ONBOARDING_KEY = "flowcorp.onboarded.v1";
 const MINI_CHAPTER_KEY = "flowcorp.firstRunChapter.dismissed.v1";
 
 function isOnboardingPending() {
-  try {
-    return typeof localStorage !== "undefined" && localStorage.getItem(ONBOARDING_KEY) !== "1";
-  } catch {
-    return false;
-  }
+  return readKey(ONBOARDING_KEY) !== "1";
 }
 
 function markOnboardingSeen() {
-  try {
-    localStorage?.setItem(ONBOARDING_KEY, "1");
-  } catch {
-    // ignore storage failures
-  }
+  writeKey(ONBOARDING_KEY, "1");
 }
 
 function isMiniChapterDismissed() {
-  try {
-    return typeof localStorage !== "undefined" && localStorage.getItem(MINI_CHAPTER_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return readKey(MINI_CHAPTER_KEY) === "1";
 }
 
 function markMiniChapterDismissed() {
-  try {
-    localStorage?.setItem(MINI_CHAPTER_KEY, "1");
-  } catch {
-    // ignore storage failures
-  }
+  writeKey(MINI_CHAPTER_KEY, "1");
 }
 
 // Load the saved roster and reconcile offline progress once, synchronously, so
@@ -177,9 +173,9 @@ export function App() {
   // Persist the whole roster: the active company (clock = now) plus the paused
   // background companies, and the shared inbox. A single-company founder saves a
   // one-company roster — identical in effect to the original single save.
-  const persistRoster = useCallback(() => {
+  const persistRoster = useCallback((force = false) => {
     if (!simRef.current) return;
-    saveRoster({
+    const raw = saveRoster({
       activeId: simRef.current.companyType.id,
       companies: [
         { id: simRef.current.companyType.id, sim: simRef.current, lastActiveAt: Date.now() },
@@ -187,6 +183,10 @@ export function App() {
       ],
       notifications: notifRef.current,
     });
+    // Mirror the exact same bytes to the platform cloud save. Throttled inside
+    // the platform module, so the 5s autosave cadence stays well inside the
+    // player-data rate limit.
+    if (raw) saveCloudSave(raw, { force });
   }, []);
 
   // Generate notifications from the current state, dedupe via cooldowns, append
@@ -210,6 +210,8 @@ export function App() {
     if (!hasGame) return undefined;
 
     const save = () => persistRoster();
+    // Leaving the page is the last chance to write: force the cloud copy too.
+    const saveAndFlush = () => persistRoster(true);
 
     const reconcile = () => {
       const hiddenAt = lastHiddenAtRef.current;
@@ -227,9 +229,12 @@ export function App() {
     const onVisibility = () => {
       if (document.hidden) {
         lastHiddenAtRef.current = Date.now();
-        save();
+        // Leaving the tab is the one moment worth spending a cloud write on.
+        saveAndFlush();
+        notifyGameplay(false);
       } else {
         reconcile();
+        notifyGameplay(true);
       }
     };
 
@@ -242,22 +247,42 @@ export function App() {
       runNotificationCheck(simRef.current);
     }, AUTOSAVE_MS);
 
+    // The company is live from the moment the game screen exists.
+    notifyGameplay(!document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
-    window.addEventListener("pagehide", save);
+    window.addEventListener("pagehide", saveAndFlush);
     window.addEventListener("blur", save);
     window.addEventListener("focus", reconcile);
 
     return () => {
       clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisibility);
-      window.removeEventListener("pagehide", save);
+      window.removeEventListener("pagehide", saveAndFlush);
       window.removeEventListener("blur", save);
       window.removeEventListener("focus", reconcile);
       // Note: no save() here — re-stamping lastActiveAt on a transient unmount
       // (e.g. React StrictMode remount) would erase the offline gap. Saving is
       // handled by the interval, visibilitychange, blur and pagehide.
+      notifyGameplay(false);
     };
-  }, [hasGame, runNotificationCheck]);
+  }, [hasGame, persistRoster, runNotificationCheck]);
+
+  // Audio can only start from a real user gesture, and must go quiet whenever
+  // the player is not looking at the game. primeAudio() is idempotent and also
+  // resumes a context the browser suspended, so firing it on every tap is both
+  // safe and the most reliable way to keep sound alive on iOS.
+  useEffect(() => {
+    const prime = () => primeAudio();
+    const onAudioVisibility = () => setAudioSuspended(document.hidden, "hidden");
+    window.addEventListener("pointerdown", prime);
+    window.addEventListener("keydown", prime);
+    document.addEventListener("visibilitychange", onAudioVisibility);
+    return () => {
+      window.removeEventListener("pointerdown", prime);
+      window.removeEventListener("keydown", prime);
+      document.removeEventListener("visibilitychange", onAudioVisibility);
+    };
+  }, []);
 
   const startCompany = useCallback((companyType) => {
     // Showcase mode seeds a boosted profile (?showcase=max) and extra starting
@@ -276,7 +301,23 @@ export function App() {
     saveRoster({ activeId: sim.companyType.id, companies: [{ id: sim.companyType.id, sim, lastActiveAt: Date.now() }], notifications: EMPTY_NOTIFICATIONS });
   }, [founderProfile]);
 
+  // The one rewarded-ad offer in the game: an optional "watch and double what
+  // the company earned while you were away". Purely additive — declining it
+  // costs the player nothing, which is what keeps it from feeling like a wall.
+  const doubleAwayEarnings = useCallback(async (amount) => {
+    const bonus = Math.max(0, Math.round(amount ?? 0));
+    const rewarded = await showRewardedVideo();
+    // No impression means no reward — leave the summary open so the player can
+    // retry or dismiss it themselves, instead of losing both.
+    if (!rewarded || !bonus) return false;
+    setSimulation((state) => (state ? grantBonusCash(state, bonus) : state));
+    setAwaySummary(null);
+    return true;
+  }, []);
+
   const restart = useCallback(() => {
+    // A logical pause: the player has left the company and is back at the menu.
+    showInterstitial();
     clearGame();
     simRef.current = null;
     backgroundRef.current = [];
@@ -312,6 +353,8 @@ export function App() {
     setFounderProfile(sharedProfile);
     setAwaySummary(null);
     persistRoster();
+    // Switching companies is a break in play, not a moment of play.
+    showInterstitial();
   }, [persistRoster]);
 
   // Found an additional company that runs alongside the others (#24, gated to the
@@ -511,7 +554,9 @@ export function App() {
         onRestart={restart}
         onTick={setSimulation}
       />
-      {awaySummary ? <AwaySummary summary={awaySummary} onDismiss={() => setAwaySummary(null)} /> : null}
+      {awaySummary ? (
+        <AwaySummary summary={awaySummary} onDismiss={() => setAwaySummary(null)} onDoubleEarnings={doubleAwayEarnings} />
+      ) : null}
       <OfferModal
         offer={simulation.outcome || simulation.legacyEvent ? null : simulation.activeOffer}
         onAccept={onAcceptOffer}
@@ -792,6 +837,15 @@ function GameScreen({ state, notifications, unreadCount, permission, roster, onS
       }
     }
 
+    // Sound follows the EVENTS, not the toast: the toast is deliberately
+    // throttled so it stays readable, but a payment should still be audible.
+    if (paymentFeedback) playSfx("cash");
+    if (goalFeedback) playSfx("goal");
+    if (bottleneckFeedback) playSfx("unblocked");
+    if (pending?.action.type === "hire" && nextFeedback?.id === "hire") playSfx("hire");
+    if (nextFeedback?.id === "automation") playSfx("automation");
+    if (after.bottleneckOverloaded && !previousFeedbackSnapshotRef.current.bottleneckOverloaded) playSfx("alert");
+
     previousFeedbackSnapshotRef.current = after;
     showActionFeedback(nextFeedback);
   }, [state, metrics, showActionFeedback]);
@@ -838,6 +892,7 @@ function GameScreen({ state, notifications, unreadCount, permission, roster, onS
     if (!celebrationId || celebrationId === celebratedRef.current) return;
     celebratedRef.current = celebrationId;
     setCelebration(celebrationId);
+    playSfx("achievement");
     const tid = window.setTimeout(() => setCelebration(null), 5200);
     return () => window.clearTimeout(tid);
   }, [celebrationId]);
@@ -846,12 +901,20 @@ function GameScreen({ state, notifications, unreadCount, permission, roster, onS
     let frameId;
 
     function frame(now) {
-      // Real per-frame dt, capped, then optionally fast-forwarded for the opt-in
-      // showcase/recording mode (identity ×1 in normal play).
-      const dt = Math.min(0.08, (now - lastFrameRef.current) / 1000) * (isShowcase() ? SHOWCASE_TIME_SCALE : 1);
+      frameId = requestAnimationFrame(frame);
+
+      // The simulation is an idle game, not an action game: every tick clones the
+      // world, re-renders the whole React tree and repaints the canvas, and none
+      // of that is perceptible above ~30 Hz for blinking, walking and documents
+      // sliding along lanes. Ticking on every display frame doubled that work for
+      // nothing — expensive on exactly the low-end phones this ships to. dt stays
+      // real elapsed time, so the simulation itself is unchanged.
+      const elapsedMs = now - lastFrameRef.current;
+      if (elapsedMs < MIN_TICK_MS) return;
+
+      const dt = Math.min(0.08, elapsedMs / 1000) * (isShowcase() ? SHOWCASE_TIME_SCALE : 1);
       lastFrameRef.current = now;
       onTick((current) => tickSimulation(current, dt));
-      frameId = requestAnimationFrame(frame);
     }
 
     frameId = requestAnimationFrame(frame);
@@ -1053,6 +1116,18 @@ function CompanyTab({ state, metrics, guidance, onHire, onRebalance, onAutomate,
   const chapterVisible = showMiniChapter && Boolean(metrics.firstRunChapter);
   return (
     <div className="tab-screen">
+      {/* The living office comes FIRST. It is what the game actually is, and on a
+          phone every explanatory panel above it pushes the thing the player came
+          for below the fold. Guidance sits underneath, where it reads as a
+          caption to what is already on screen. */}
+      <section className="office-wrap" data-no-swipe>
+        <OfficeCanvas state={state} metrics={metrics} t={t} language={language} />
+        {metrics.automationEra === "ai" || metrics.automationEra === "advanced" ? (
+          <div className={`office-ai-ambiance era-${metrics.automationEra}`} aria-hidden="true">
+            <span className="ai-ambiance-badge" title={t(`automationPanel.era.${metrics.automationEra}`)}>🤖</span>
+          </div>
+        ) : null}
+      </section>
       {chapterVisible ? (
         <FirstRunChapter chapter={metrics.firstRunChapter} onAction={onAdvisorAction} onDismiss={onDismissMiniChapter} />
       ) : null}
@@ -1070,14 +1145,6 @@ function CompanyTab({ state, metrics, guidance, onHire, onRebalance, onAutomate,
       <MoneyFlowGlance data={metrics.incomeBreakdown} />
       {guidance.goal ? <GoalBar goal={metrics.goal} /> : null}
       <StatusStrip metrics={metrics} showBottleneck={guidance.bottleneck} explain={guidance.bottleneckDetail} />
-      <section className="office-wrap" data-no-swipe>
-        <OfficeCanvas state={state} t={t} language={language} />
-        {metrics.automationEra === "ai" || metrics.automationEra === "advanced" ? (
-          <div className={`office-ai-ambiance era-${metrics.automationEra}`} aria-hidden="true">
-            <span className="ai-ambiance-badge" title={t(`automationPanel.era.${metrics.automationEra}`)}>🤖</span>
-          </div>
-        ) : null}
-      </section>
       <DepartmentPanel
         departments={state.departments}
         bottleneckId={metrics.bottleneck?.id}
@@ -2278,6 +2345,7 @@ function SettingsPanel({ onClose }) {
   const { t, language, setLanguage, languages } = useI18n();
   const { mode: guidanceMode, setMode: setGuidanceMode, modes: guidanceModes } = useGuidanceMode();
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [soundOn, setSoundOn] = useState(() => !isMuted());
 
   return (
     <>
@@ -2310,6 +2378,22 @@ function SettingsPanel({ onClose }) {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="settings-group">
+            <h4>{t("settings.sound")}</h4>
+            <button
+              className={`language-option ${soundOn ? "is-active" : ""}`}
+              onClick={() => {
+                const next = !soundOn;
+                setSoundOn(next);
+                setMuted(!next);
+                if (next) playSfx("tap");
+              }}
+              aria-pressed={soundOn}
+            >
+              {soundOn ? t("settings.soundOn") : t("settings.soundOff")}
+            </button>
           </div>
 
           <div className="settings-group">
@@ -2426,8 +2510,12 @@ function InboxList({ notifications, permission, onEnable }) {
   );
 }
 
-function AwaySummary({ summary, onDismiss }) {
+function AwaySummary({ summary, onDismiss, onDoubleEarnings }) {
   const { t } = useI18n();
+  const [watching, setWatching] = useState(false);
+  // Only offered when there is something to double and an ad to actually show.
+  const bonus = Math.max(0, Math.round(summary.cashChange ?? 0));
+  const canDouble = bonus > 0 && canShowRewarded();
   return (
     <div className="automation-overlay" role="dialog" aria-label={t("away.title")}>
       <div className="automation-sheet away-sheet">
@@ -2439,6 +2527,19 @@ function AwaySummary({ summary, onDismiss }) {
         <CompanyReportContent report={summary} />
         {summary.capped ? <p className="away-note">{t("away.capped", { hours: Math.round(MAX_OFFLINE_SECONDS / 3600) })}</p> : null}
 
+        {canDouble ? (
+          <button
+            className="away-double"
+            disabled={watching}
+            onClick={async () => {
+              setWatching(true);
+              const granted = await onDoubleEarnings(bonus);
+              if (!granted) setWatching(false);
+            }}
+          >
+            {t("away.double", { amount: formatMoney(bonus) })}
+          </button>
+        ) : null}
         <button className="automation-buy" onClick={onDismiss}>
           {t("away.continue")}
         </button>

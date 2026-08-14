@@ -253,7 +253,7 @@ export function createSimulation(companyType, founderProfile = null) {
     };
   });
 
-  return {
+  const state = {
     companyType,
     departments,
     tasks: [],
@@ -361,6 +361,47 @@ export function createSimulation(companyType, founderProfile = null) {
     },
     modifiers: { expense: 1, leadInterval: 1, taskValue: 1 },
   };
+
+  seedInitialPipeline(state);
+  return state;
+}
+
+// A brand-new company used to open with a completely empty pipeline, so the
+// first payment only arrived after a full lap through every department — around
+// 45 seconds of watching nothing happen, which is far longer than a new player
+// will wait. A company now opens MID-FLOW: client projects are already spread
+// along the departments, so the first money lands within seconds and the loop
+// the player is meant to optimize is visible immediately.
+function seedInitialPipeline(state) {
+  const stages = state.departments.length;
+  if (stages < 2) return;
+  // Deepest first: one project nearly at the payment stage, then progressively
+  // fresher work behind it, so payments keep arriving while the pipeline fills.
+  for (let stage = stages - 1; stage >= 1; stage -= 1) {
+    advanceSeededTask(state, enqueueLead(state), stage);
+  }
+}
+
+// Walks a seeded task forward through the SAME flow definitions the simulation
+// uses, just without spending the processing time (and without the rework roll —
+// a starting project is never pre-rejected).
+function advanceSeededTask(state, task, steps) {
+  for (let step = 0; step < steps; step += 1) {
+    const department = getDepartmentById(state, task.departmentId);
+    const flow = department ? getDepartmentFlow(state, department, task) : null;
+    const next = flow?.nextDepartmentId ? getDepartmentById(state, flow.nextDepartmentId) : null;
+    if (!department || !next) return;
+
+    department.queue = department.queue.filter((id) => id !== task.id);
+    task.kind = flow.outputKind;
+    task.label = getTaskLabel(flow.outputKind);
+    task.fromDepartmentId = department.id;
+    task.targetDepartmentId = next.id;
+    task.departmentId = next.id;
+    task.status = "queued";
+    task.progress = 0;
+    next.queue.push(task.id);
+  }
 }
 
 // An employee is a persistent visual entity. characterType and the name indices
@@ -1539,6 +1580,19 @@ export function takeFounderLoan(state) {
   next.debt = (next.debt ?? 0) + Math.round(FOUNDER_LOAN_AMOUNT * (1 + FOUNDER_LOAN_INTEREST));
   next.loansTaken = (next.loansTaken ?? 0) + 1;
   next.eventLog = [`Founder loan: +${formatCost(FOUNDER_LOAN_AMOUNT)} now, repaid with interest.`, ...next.eventLog].slice(0, 4);
+  return next;
+}
+
+// A one-off cash grant with no strings attached — used for the optional
+// "double your offline earnings" reward. It is deliberately NOT counted as
+// revenue, so the money-flow explanations keep telling the truth about where
+// recurring income comes from.
+export function grantBonusCash(state, amount) {
+  const value = Math.max(0, Math.round(amount ?? 0));
+  if (!value) return state;
+  const next = cloneState(state);
+  next.cash += value;
+  next.eventLog = [`Bonus: +${formatCost(value)}.`, ...next.eventLog].slice(0, 4);
   return next;
 }
 

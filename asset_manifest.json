@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T16:21:26.045Z",
+  "generatedAt": "2026-08-14T10:28:46.605Z",
   "source": "src/assets (hand-authored, source of truth)",
   "assets": [
     {
@@ -51,8 +51,20 @@
       "dimensions": "1024x1024"
     },
     {
+      "name": "e-commerce.jpg",
+      "path": "src/assets/background/e-commerce.jpg",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
       "name": "e-commerce.png",
       "path": "src/assets/background/e-commerce.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "it-company.jpg",
+      "path": "src/assets/background/it-company.jpg",
       "category": "background",
       "dimensions": "1254x1254"
     },
@@ -63,14 +75,32 @@
       "dimensions": "1254x1254"
     },
     {
+      "name": "logistics.jpg",
+      "path": "src/assets/background/logistics.jpg",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
       "name": "logistics.png",
       "path": "src/assets/background/logistics.png",
       "category": "background",
       "dimensions": "1254x1254"
     },
     {
+      "name": "manufacturing.jpg",
+      "path": "src/assets/background/manufacturing.jpg",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
       "name": "manufacturing.png",
       "path": "src/assets/background/manufacturing.png",
+      "category": "background",
+      "dimensions": "1254x1254"
+    },
+    {
+      "name": "marketing-agency.jpg",
+      "path": "src/assets/background/marketing-agency.jpg",
       "category": "background",
       "dimensions": "1254x1254"
     },

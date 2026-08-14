@@ -6,9 +6,23 @@
 const employeeFiles = import.meta.glob("./employees/**/*.png", { eager: true, query: "?url", import: "default" });
 const departmentFiles = import.meta.glob("./departments/*.png", { eager: true, query: "?url", import: "default" });
 const taskFiles = import.meta.glob("./tasks/*.png", { eager: true, query: "?url", import: "default" });
-const officeFiles = import.meta.glob("./office/*.png", { eager: true, query: "?url", import: "default" });
-const uiFiles = import.meta.glob("./ui/*.png", { eager: true, query: "?url", import: "default" });
-const backgroundFiles = import.meta.glob("./background/*.png", { eager: true, query: "?url", import: "default" });
+// Only the props the canvas actually draws are imported. A glob over the whole
+// folder bundles every file whether or not it reaches the screen, and these are
+// ~400 KB each — the office furniture is already painted into the room art, so
+// the water cooler (the destination of the idle-walk animation) is the only
+// standalone prop in use. Drawing another one = adding its import here.
+import waterCoolerUrl from "./office/water_cooler.png?url";
+
+// NOTE: src/assets/ui/ (HUD/action icons) and src/assets/automation/ (technology
+// icons) are intentionally NOT imported: the interface renders those as emoji,
+// so importing them shipped ~7 MB of images that never appeared on screen. The
+// art stays on disk for when a real icon set replaces the emoji.
+// Backgrounds ship as JPEG: they are full-bleed, alpha-free, and by far the
+// heaviest art in the build (a 2.2 MB PNG each vs ~0.5 MB as JPEG), which is
+// the difference between a game that loads on mobile data and one that does
+// not. The hand-authored PNG masters stay in the folder as the source of truth —
+// they are simply not the files that get bundled.
+const backgroundFiles = import.meta.glob("./background/*.jpg", { eager: true, query: "?url", import: "default" });
 
 export const EMPLOYEE_CHARACTERS = ["black_employee", "red_employee", "woman_employee"];
 
@@ -66,7 +80,7 @@ const DEFAULT_ROOM_STEM = "support_room";
 // Company id -> background sprite stem. The art pack ships "e-commerce" for the
 // ecommerce-company id; other companies match their id directly. New tiered
 // companies reuse an existing office background until dedicated art ships — drop
-// a `<company-id>.png` into src/assets/background/ to override (no code change).
+// a `<company-id>.jpg` into src/assets/background/ to override (no code change).
 const BACKGROUND_ALIASES = {
   "ecommerce-company": "e-commerce",
   // Beginner tier
@@ -82,8 +96,10 @@ const BACKGROUND_ALIASES = {
   "government-contractor": "manufacturing",
 };
 
+// The stem is the filename without its extension — sprites are PNG, backgrounds
+// are JPEG, and callers should not have to know or care which.
 function stemOf(path) {
-  return path.split("/").pop().replace(/\.png$/, "");
+  return path.split("/").pop().replace(/\.[a-z0-9]+$/i, "");
 }
 
 function keyByStem(files) {
@@ -118,8 +134,7 @@ export const assetRegistry = {
   employees: buildEmployees(),
   departments: keyByStem(departmentFiles),
   tasks: keyByStem(taskFiles),
-  office: keyByStem(officeFiles),
-  ui: keyByStem(uiFiles),
+  office: { water_cooler: waterCoolerUrl },
   backgrounds: keyByStem(backgroundFiles),
 };
 
@@ -157,8 +172,4 @@ export function getBackgroundSprite(companyId) {
 
 export function getOfficeSprite(name) {
   return assetRegistry.office[name] ?? null;
-}
-
-export function getUiSprite(name) {
-  return assetRegistry.ui[name] ?? null;
 }

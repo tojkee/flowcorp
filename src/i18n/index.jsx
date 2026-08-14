@@ -1,17 +1,25 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import en from "../locales/en.json";
 import ru from "../locales/ru.json";
+import { readKey, writeKey } from "../core/storage.js";
 
 // Localization system. All visible strings resolve through t(key) so there is
-// no hardcoded UI text. English is the default and the fallback when a key is
-// missing in another language. The selected language is persisted.
+// no hardcoded UI text. Russian is the default (the primary audience) and
+// English is the fallback when a key is missing. The selected language is
+// persisted, and a host platform can supply the interface language at boot.
 
 const RESOURCES = { en, ru };
 export const LANGUAGES = [
   { code: "en", label: "English" },
   { code: "ru", label: "Русский" },
 ];
-const DEFAULT_LANGUAGE = "en";
+// Russian is the default: the game ships primarily to Yandex Games, whose
+// audience is Russian-speaking. English remains the fallback for missing keys.
+const DEFAULT_LANGUAGE = "ru";
+const FALLBACK_LANGUAGE = "en";
+// Set once at boot from the host platform's interface language (see
+// platform/yandex.js), and used only when the player has no stored preference.
+let platformLanguage = null;
 const STORAGE_KEY = "flowcorp.language";
 
 const I18nContext = createContext(null);
@@ -29,30 +37,29 @@ function interpolate(template, vars) {
 // bound translator.
 export function translate(language, key, vars) {
   let value = resolveKey(RESOURCES[language] ?? RESOURCES[DEFAULT_LANGUAGE], key);
-  if (value === undefined) value = resolveKey(RESOURCES[DEFAULT_LANGUAGE], key);
+  if (value === undefined) value = resolveKey(RESOURCES[FALLBACK_LANGUAGE], key);
   if (value === undefined) return key;
   return interpolate(value, vars);
 }
 
+export function setPlatformLanguage(language) {
+  const code = typeof language === "string" ? language.toLowerCase().slice(0, 2) : null;
+  platformLanguage = code && RESOURCES[code] ? code : null;
+}
+
+// An explicit choice by the player always wins; otherwise follow the platform,
+// and only then the default.
 function readStoredLanguage() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && RESOURCES[stored]) return stored;
-  } catch {
-    // localStorage may be unavailable; fall back to default.
-  }
-  return DEFAULT_LANGUAGE;
+  const stored = readKey(STORAGE_KEY);
+  if (stored && RESOURCES[stored]) return stored;
+  return platformLanguage ?? DEFAULT_LANGUAGE;
 }
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(readStoredLanguage);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, language);
-    } catch {
-      // Ignore persistence failures.
-    }
+    writeKey(STORAGE_KEY, language);
     if (typeof document !== "undefined") document.documentElement.lang = language;
   }, [language]);
 

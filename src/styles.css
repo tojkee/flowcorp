@@ -3055,6 +3055,24 @@ h1 {
   line-height: 1.25;
 }
 
+/* The optional rewarded-ad offer. Deliberately the warmest button on the sheet
+   — it is a gift, not a paywall — but still secondary to "Continue". */
+.away-double {
+  margin-top: 10px;
+  padding: 10px 8px;
+  background: linear-gradient(180deg, #2b6b3a, #1c4a2a);
+  border: 1px solid #58d86b;
+  border-radius: 6px;
+  color: #f2fff5;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.away-double:disabled {
+  opacity: 0.55;
+}
+
 .automation-buy:disabled {
   opacity: 0.5;
   border-color: #2a4058;
