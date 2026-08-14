@@ -14,6 +14,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  /* A game, not a document: a long press must trigger the game's own action,
+     not the browser's text/image callout, and dragging must not select the UI.
+     Inputs re-enable selection below so typing still behaves normally. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
   /* Prevent horizontal page scroll without creating a vertical scroll container
      (so position: sticky inside the shell sticks to the viewport). */
   overflow-x: hidden;
@@ -3946,4 +3952,10 @@ button:disabled {
   text-transform: uppercase;
   pointer-events: none;
   white-space: nowrap;
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }

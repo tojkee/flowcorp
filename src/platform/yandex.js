@@ -16,6 +16,14 @@
 
 import { setAudioSuspended } from "../audio/sfx.js";
 
+// Monetization switch. The ad integration below is complete, but it ships
+// TURNED OFF because no advertising network is connected to the developer
+// account: without one every ad call resolves to "nothing was shown", and a
+// rewarded button that promises a bonus and then does nothing is worse than no
+// button at all. Flip this to true once monetization is connected in the
+// console — no other change is needed.
+const ADS_ENABLED = false;
+
 const SDK_URL = "/sdk.js";
 const SDK_TIMEOUT_MS = 4000;
 // player.setData is rate-limited (100 calls / 5 min). The local save runs on a
@@ -173,7 +181,7 @@ function endAd() {
 }
 
 export function showInterstitial() {
-  if (!ysdk) return Promise.resolve(false);
+  if (!ADS_ENABLED || !ysdk) return Promise.resolve(false);
   return new Promise((resolve) => {
     try {
       ysdk.adv.showFullscreenAdv({
@@ -199,7 +207,7 @@ export function showInterstitial() {
 // A rewarded video. Resolves true ONLY when the impression was counted, so the
 // caller can grant the reward without a second check.
 export function showRewardedVideo() {
-  if (!ysdk) return Promise.resolve(false);
+  if (!ADS_ENABLED || !ysdk) return Promise.resolve(false);
   return new Promise((resolve) => {
     let rewarded = false;
     try {
@@ -226,10 +234,11 @@ export function showRewardedVideo() {
   });
 }
 
-// Is a rewarded offer worth showing at all? Off-platform there is no ad to play,
-// so the button stays hidden rather than promising a reward it cannot deliver.
+// Is a rewarded offer worth showing at all? With ads off, or off-platform, there
+// is no ad to play — so the button stays hidden rather than promising a reward
+// it cannot deliver.
 export function canShowRewarded() {
-  return Boolean(ysdk);
+  return ADS_ENABLED && Boolean(ysdk);
 }
 
 // --- Cloud save -------------------------------------------------------------

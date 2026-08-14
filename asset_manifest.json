@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T10:28:46.605Z",
+  "generatedAt": "2026-08-14T12:40:30.824Z",
   "source": "src/assets (hand-authored, source of truth)",
   "assets": [
     {
@@ -228,127 +228,127 @@
       "name": "black_employee_idle_blink.png",
       "path": "src/assets/employees/black_employee/black_employee_idle_blink.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_idle.png",
       "path": "src/assets/employees/black_employee/black_employee_idle.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_sitting.png",
       "path": "src/assets/employees/black_employee/black_employee_sitting.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_walk_down.png",
       "path": "src/assets/employees/black_employee/black_employee_walk_down.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_walk_left.png",
       "path": "src/assets/employees/black_employee/black_employee_walk_left.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_walk_right.png",
       "path": "src/assets/employees/black_employee/black_employee_walk_right.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "black_employee_walk_up.png",
       "path": "src/assets/employees/black_employee/black_employee_walk_up.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_idle_blink.png",
       "path": "src/assets/employees/red_employee/employee_idle_blink.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_idle.png",
       "path": "src/assets/employees/red_employee/employee_idle.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_sitting.png",
       "path": "src/assets/employees/red_employee/employee_sitting.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_walk_down.png",
       "path": "src/assets/employees/red_employee/employee_walk_down.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_walk_left.png",
       "path": "src/assets/employees/red_employee/employee_walk_left.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_walk_right.png",
       "path": "src/assets/employees/red_employee/employee_walk_right.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "employee_walk_up.png",
       "path": "src/assets/employees/red_employee/employee_walk_up.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_idle_blink.png",
       "path": "src/assets/employees/woman_employee/woman_employee_idle_blink.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_idle.png",
       "path": "src/assets/employees/woman_employee/woman_employee_idle.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_sitting.png",
       "path": "src/assets/employees/woman_employee/woman_employee_sitting.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_walk_down.png",
       "path": "src/assets/employees/woman_employee/woman_employee_walk_down.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_walk_left.png",
       "path": "src/assets/employees/woman_employee/woman_employee_walk_left.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_walk_right.png",
       "path": "src/assets/employees/woman_employee/woman_employee_walk_right.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "woman_employee_walk_up.png",
       "path": "src/assets/employees/woman_employee/woman_employee_walk_up.png",
       "category": "employees",
-      "dimensions": "1024x1024"
+      "dimensions": "256x256"
     },
     {
       "name": "chair.png",
@@ -390,7 +390,7 @@
       "name": "water_cooler.png",
       "path": "src/assets/office/water_cooler.png",
       "category": "office",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "palette.png",
@@ -408,43 +408,43 @@
       "name": "bug_token.png",
       "path": "src/assets/tasks/bug_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "development_task_token.png",
       "path": "src/assets/tasks/development_task_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "invoice_token.png",
       "path": "src/assets/tasks/invoice_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "lead_token.png",
       "path": "src/assets/tasks/lead_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "payment_token.png",
       "path": "src/assets/tasks/payment_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "requirement_token.png",
       "path": "src/assets/tasks/requirement_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "support_ticket_token.png",
       "path": "src/assets/tasks/support_ticket_token.png",
       "category": "tasks",
-      "dimensions": "1024x1024"
+      "dimensions": "128x128"
     },
     {
       "name": "icon_automation.png",

@@ -271,17 +271,36 @@ export function App() {
   // the player is not looking at the game. primeAudio() is idempotent and also
   // resumes a context the browser suspended, so firing it on every tap is both
   // safe and the most reliable way to keep sound alive on iOS.
+  //
+  // "Not looking at the game" covers two different events: a hidden TAB fires
+  // visibilitychange, but switching to another window or app only blurs — and
+  // the platform requires sound to stop for both.
   useEffect(() => {
     const prime = () => primeAudio();
     const onAudioVisibility = () => setAudioSuspended(document.hidden, "hidden");
+    const onBlur = () => setAudioSuspended(true, "blur");
+    const onFocus = () => setAudioSuspended(false, "blur");
     window.addEventListener("pointerdown", prime);
     window.addEventListener("keydown", prime);
     document.addEventListener("visibilitychange", onAudioVisibility);
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("focus", onFocus);
     return () => {
       window.removeEventListener("pointerdown", prime);
       window.removeEventListener("keydown", prime);
       document.removeEventListener("visibilitychange", onAudioVisibility);
+      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("focus", onFocus);
     };
+  }, []);
+
+  // The browser's own context menu (right click on desktop, long press on a
+  // phone) must not open over the game area: on mobile it interrupts a tap and
+  // pops the image/text callout over the canvas.
+  useEffect(() => {
+    const blockContextMenu = (event) => event.preventDefault();
+    document.addEventListener("contextmenu", blockContextMenu);
+    return () => document.removeEventListener("contextmenu", blockContextMenu);
   }, []);
 
   const startCompany = useCallback((companyType) => {

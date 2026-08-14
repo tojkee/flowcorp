@@ -99,6 +99,8 @@ scripts/
   validate_money_flow.mjs      Payment history, revenue trend/source, leak, bottleneck cost, and action-effect regression suite
 ```
 
+Sprites are stored at the size they are actually DRAWN, not at authoring resolution: characters are 256×256 (drawn at most 61 CSS px, ~183 device px at DPR 3), task tokens and the water cooler are 128×128 (drawn 22 px and 30 px). They were downscaled from 1024×1024 masters — recoverable from git history — because shipping them at 4–46× the drawn size cost ~10 MB of the build for pixels no screen ever shows. Room art is left at ~380 px, which is correct for its 122 px draw width at DPR 3.
+
 Each character folder ships single-frame sprites (one image per state), not multi-frame strips. Note the file-naming is not uniform: `red_employee/` files use an `employee_` prefix, and the Sales room is `sale_room.png`. The asset registry hides these quirks from rendering code.
 
 ## Major Systems
