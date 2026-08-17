@@ -16,13 +16,12 @@
 
 import { setAudioSuspended } from "../audio/sfx.js";
 
-// Monetization switch. The ad integration below is complete, but it ships
-// TURNED OFF because no advertising network is connected to the developer
-// account: without one every ad call resolves to "nothing was shown", and a
-// rewarded button that promises a bonus and then does nothing is worse than no
-// button at all. Flip this to true once monetization is connected in the
-// console — no other change is needed.
-const ADS_ENABLED = false;
+// Monetization switch. The ad integration below is complete. Turned ON now
+// that RSYA (Yandex Advertising Network) monetization is connected in the
+// developer console — before this, every ad call would have resolved to
+// "nothing was shown", and a rewarded button that promises a bonus and does
+// nothing is worse than no button at all.
+const ADS_ENABLED = true;
 
 const SDK_URL = "/sdk.js";
 const SDK_TIMEOUT_MS = 4000;
